@@ -7,6 +7,7 @@
     <AspirationSection :aspirations="props.aspirations" />
     <BlogSection :posts="props.posts" />
     <Footer />
+    <BackToTop />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import ServiceSection from '@/components/ServiceSection.vue';
 import AspirationSection from '@/components/AspirationSection.vue';
 import BlogSection from '@/components/BlogSection.vue';
 import Footer from '@/components/Footer.vue';
+import BackToTop from '@/components/BackToTop.vue';
 
 // Props from controller
 interface Props {

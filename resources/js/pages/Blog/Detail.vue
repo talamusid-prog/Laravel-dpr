@@ -112,10 +112,12 @@
 
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap items-center gap-3 mb-8">
-                  <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
-                    <Share2 class="w-4 h-4" />
-                    Bagikan
-                  </button>
+                  <ShareButton 
+                    :title="post?.title"
+                    :url="getCurrentUrl()"
+                    :description="post?.excerpt"
+                    button-text="Bagikan"
+                  />
                   <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
                     <Bookmark class="w-4 h-4" />
                     Simpan
@@ -156,10 +158,13 @@
 
                 <!-- Article Footer -->
                 <div class="mt-8 pt-6 border-t border-gray-200">
-                  <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors ml-auto">
-                    <Share2 class="w-4 h-4" />
-                    Bagikan Artikel
-                  </button>
+                  <ShareButton 
+                    :title="post?.title"
+                    :url="getCurrentUrl()"
+                    :description="post?.excerpt"
+                    button-text="Bagikan Artikel"
+                    class="ml-auto"
+                  />
                 </div>
               </div>
             </div>
@@ -296,6 +301,9 @@
 
     <!-- Footer -->
     <Footer />
+    
+    <!-- Back to Top Button -->
+    <BackToTop />
   </div>
 </template>
 
@@ -318,6 +326,8 @@ import {
 } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import BackToTop from '@/components/BackToTop.vue';
+import ShareButton from '@/components/ShareButton.vue';
 
 // Types
 interface Post {
@@ -511,6 +521,10 @@ const navigateToArticle = (slug: string) => {
 
 const navigateToTag = (tag: string) => {
   router.visit(`/blog?search=${encodeURIComponent(tag)}`);
+};
+
+const getCurrentUrl = () => {
+  return window.location.href;
 };
 
 
