@@ -37,13 +37,14 @@ defineProps<{
                 Resend verification email
             </Button>
 
-            <TextLink
-                :href="logout()"
-                as="button"
-                class="mx-auto block text-sm"
-            >
-                Log out
-            </TextLink>
+            <form method="POST" :action="logout().url" class="mx-auto block">
+                <button
+                    type="submit"
+                    class="text-sm text-primary hover:underline"
+                >
+                    Log out
+                </button>
+            </form>
         </Form>
     </AuthLayout>
 </template>
