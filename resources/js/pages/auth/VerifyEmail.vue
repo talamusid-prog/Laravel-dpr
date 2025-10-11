@@ -2,9 +2,12 @@
 import EmailVerificationNotificationController from '@/actions/App/Http/Controllers/Auth/EmailVerificationNotificationController';
 import { Button } from '@/components/ui/button';
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import { logout } from '@/routes';
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, router } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+
+const handleLogout = () => {
+    router.post('/logout');
+};
 
 defineProps<{
     status?: string;
@@ -36,14 +39,12 @@ defineProps<{
                 Resend verification email
             </Button>
 
-            <form method="POST" :action="logout().url" class="mx-auto block">
-                <button
-                    type="submit"
-                    class="text-sm text-primary hover:underline"
-                >
-                    Log out
-                </button>
-            </form>
+            <button
+                @click="handleLogout"
+                class="mx-auto block text-sm text-primary hover:underline"
+            >
+                Log out
+            </button>
         </Form>
     </AuthLayout>
 </template>

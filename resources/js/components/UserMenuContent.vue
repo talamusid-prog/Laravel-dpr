@@ -6,15 +6,18 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import type { User } from '@/types';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { LogOut, Settings } from 'lucide-vue-next';
 
 interface Props {
     user: User;
 }
+
+const handleLogout = () => {
+    router.post('/logout');
+};
 
 defineProps<Props>();
 </script>
@@ -36,15 +39,13 @@ defineProps<Props>();
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
-        <form method="POST" :action="logout().url" class="block w-full">
-            <button
-                type="submit"
-                class="flex w-full items-center px-2 py-1.5 text-sm hover:bg-accent"
-                data-test="logout-button"
-            >
-                <LogOut class="mr-2 h-4 w-4" />
-                Log out
-            </button>
-        </form>
+        <button
+            @click="handleLogout"
+            class="flex w-full items-center px-2 py-1.5 text-sm hover:bg-accent"
+            data-test="logout-button"
+        >
+            <LogOut class="mr-2 h-4 w-4" />
+            Log out
+        </button>
     </DropdownMenuItem>
 </template>
