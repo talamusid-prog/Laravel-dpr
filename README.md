@@ -14,9 +14,9 @@ APP_KEY=base64:YOUR_APP_KEY_HERE
 APP_DEBUG=false
 APP_URL=https://your-domain.zeabur.app
 
-# Database (SQLite)
+# Database (SQLite untuk development, PostgreSQL untuk production)
 DB_CONNECTION=sqlite
-DB_DATABASE=/var/www/database/database.sqlite
+DB_DATABASE=database/database.sqlite
 
 # Session & Cache
 SESSION_DRIVER=database
@@ -43,6 +43,45 @@ APP_KEY=base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=
    - **Name**: `APP_KEY`
    - **Value**: `base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=`
 5. Save dan redeploy aplikasi
+
+### 🗄️ Database Setup:
+
+**Untuk SQLite (Development):**
+```bash
+# Set environment variables di Zeabur:
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+**Untuk PostgreSQL (Production - Recommended):**
+```bash
+# Set environment variables di Zeabur:
+DB_CONNECTION=pgsql
+DB_HOST=your-postgres-host
+DB_PORT=5432
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+```
+
+**Setup Database:**
+1. Set environment variables di Zeabur
+2. Jalankan setup database: `php artisan-setup-db.php`
+3. Jalankan migration: `php artisan migrate`
+4. Jalankan seeder: `php artisan db:seed`
+
+**Quick Setup (Manual):**
+```bash
+# Buat direktori dan file database
+mkdir -p database
+touch database/database.sqlite
+chmod 664 database/database.sqlite
+chmod 755 database
+
+# Jalankan migration dan seeder
+php artisan migrate
+php artisan db:seed
+```
 
 ### 📁 File Structure:
 
