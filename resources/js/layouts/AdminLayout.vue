@@ -81,7 +81,8 @@
             <button class="p-2 text-gray-600 hover:text-gray-900">
               <Settings class="w-5 h-5" />
             </button>
-            <form method="POST" action="/admin/logout" class="inline">
+            <form method="POST" action="/logout" class="inline">
+              <input type="hidden" name="_token" :value="$page.props.csrf_token" />
               <button 
                 type="submit"
                 class="p-2 text-gray-600 hover:text-gray-900"
