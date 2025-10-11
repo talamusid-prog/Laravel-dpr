@@ -83,6 +83,29 @@ php artisan migrate
 php artisan db:seed
 ```
 
+### 🚨 Troubleshooting Database Error:
+
+**Jika error: "Database file at path [/var/www/database/database.sqlite] does not exist"**
+
+1. **Set Environment Variable di Zeabur:**
+   ```bash
+   DB_DATABASE=database/database.sqlite
+   ```
+
+2. **Jalankan di Zeabur Console/Terminal:**
+   ```bash
+   php artisan-setup-db.php
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+3. **Verifikasi Database:**
+   ```bash
+   ls -la database/
+   php artisan tinker
+   # Di tinker: DB::connection()->getPdo();
+   ```
+
 ### 📁 File Structure:
 
 ```

@@ -11,7 +11,9 @@ echo "Setting up database...\n";
 $databaseDir = __DIR__ . '/database';
 if (!is_dir($databaseDir)) {
     mkdir($databaseDir, 0755, true);
-    echo "Database directory created.\n";
+    echo "Database directory created: {$databaseDir}\n";
+} else {
+    echo "Database directory already exists: {$databaseDir}\n";
 }
 
 // Buat file database SQLite jika belum ada
@@ -21,12 +23,26 @@ if (!file_exists($databaseFile)) {
     chmod($databaseFile, 0664);
     echo "Database file created: {$databaseFile}\n";
 } else {
-    echo "Database file already exists.\n";
+    echo "Database file already exists: {$databaseFile}\n";
 }
 
 // Set permission yang tepat
 chmod($databaseDir, 0755);
-chmod($databaseFile, 0664);
+if (file_exists($databaseFile)) {
+    chmod($databaseFile, 0664);
+}
 
-echo "Database setup completed!\n";
-echo "You can now run: php artisan migrate\n";
+// Verifikasi file database
+if (file_exists($databaseFile)) {
+    echo "✅ Database file verified: {$databaseFile}\n";
+    echo "✅ File size: " . filesize($databaseFile) . " bytes\n";
+    echo "✅ Permissions: " . substr(sprintf('%o', fileperms($databaseFile)), -4) . "\n";
+} else {
+    echo "❌ Database file creation failed!\n";
+    exit(1);
+}
+
+echo "\nDatabase setup completed!\n";
+echo "Next steps:\n";
+echo "1. Run: php artisan migrate\n";
+echo "2. Run: php artisan db:seed\n";
