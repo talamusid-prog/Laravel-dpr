@@ -8,19 +8,20 @@ Aplikasi web untuk DPR (Dewan Perwakilan Rakyat) dengan fitur admin panel, blog,
 
 ```bash
 # Laravel Configuration
-APP_NAME="Laravel DPR"
+APP_NAME="Dr. Ir. H. AGUS AMBO DJIWA, M.P."
 APP_ENV=production
 APP_KEY=base64:YOUR_APP_KEY_HERE
 APP_DEBUG=false
 APP_URL=https://your-domain.zeabur.app
+# Force HTTPS (automatically handled by ForceHttps middleware)
 
 # Database (MySQL untuk production)
 DB_CONNECTION=mysql
 DB_HOST=43.157.224.164
-DB_PORT=80
-DB_DATABASE=your-database-name
-DB_USERNAME=your-username
-DB_PASSWORD=your-password
+DB_PORT=32440
+DB_DATABASE=zeabur
+DB_USERNAME=root
+DB_PASSWORD=6joCzBF48UtgY0fD5k3P2OZ7r1nNHKb9
 
 # Session & Cache
 SESSION_DRIVER=database
@@ -47,6 +48,18 @@ APP_KEY=base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=
    - **Name**: `APP_KEY`
    - **Value**: `base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=`
 5. Save dan redeploy aplikasi
+
+### 🔒 HTTPS Configuration:
+
+**Aplikasi sudah dikonfigurasi untuk menggunakan HTTPS secara otomatis:**
+- ✅ **ForceHttps Middleware** - Memaksa redirect ke HTTPS di production
+- ✅ **Security Headers** - Menambahkan header keamanan
+- ✅ **HSTS** - HTTP Strict Transport Security
+- ✅ **XSS Protection** - Perlindungan dari XSS attacks
+
+**Konfigurasi otomatis:**
+- Production: Otomatis redirect ke HTTPS
+- Development: Tetap menggunakan HTTP untuk development
 
 ### 🗄️ Database Setup:
 
