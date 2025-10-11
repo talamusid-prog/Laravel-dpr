@@ -27,7 +27,7 @@
             class="flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors"
             :class="[
               isActiveRoute(item.href) 
-                ? 'bg-primary text-white' 
+                ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' 
                 : 'text-gray-700 hover:bg-gray-100'
             ]"
           >
