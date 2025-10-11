@@ -14,9 +14,13 @@ APP_KEY=base64:YOUR_APP_KEY_HERE
 APP_DEBUG=false
 APP_URL=https://your-domain.zeabur.app
 
-# Database (SQLite untuk development, PostgreSQL untuk production)
-DB_CONNECTION=sqlite
-DB_DATABASE=database/database.sqlite
+# Database (MySQL untuk production)
+DB_CONNECTION=mysql
+DB_HOST=43.157.224.164
+DB_PORT=80
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
 
 # Session & Cache
 SESSION_DRIVER=database
@@ -46,6 +50,17 @@ APP_KEY=base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=
 
 ### 🗄️ Database Setup:
 
+**Untuk MySQL (Production - Recommended):**
+```bash
+# Set environment variables di Zeabur:
+DB_CONNECTION=mysql
+DB_HOST=your-mysql-host
+DB_PORT=3306
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+```
+
 **Untuk SQLite (Development):**
 ```bash
 # Set environment variables di Zeabur:
@@ -53,7 +68,7 @@ DB_CONNECTION=sqlite
 DB_DATABASE=database/database.sqlite
 ```
 
-**Untuk PostgreSQL (Production - Recommended):**
+**Untuk PostgreSQL (Alternative):**
 ```bash
 # Set environment variables di Zeabur:
 DB_CONNECTION=pgsql
@@ -65,7 +80,12 @@ DB_PASSWORD=your-password
 ```
 
 **Setup Database:**
-1. Set environment variables di Zeabur
+1. Set environment variables di Zeabur (MySQL)
+2. Jalankan migration: `php artisan migrate`
+3. Jalankan seeder: `php artisan db:seed`
+
+**Setup Database (SQLite - Development):**
+1. Set environment variables di Zeabur (SQLite)
 2. Jalankan setup database: `php artisan-setup-db.php`
 3. Jalankan migration: `php artisan migrate`
 4. Jalankan seeder: `php artisan db:seed`
@@ -85,10 +105,34 @@ php artisan db:seed
 
 ### 🚨 Troubleshooting Database Error:
 
-**Jika error: "Database file at path [/var/www/database/database.sqlite] does not exist"**
+**Untuk MySQL (Production):**
+1. **Set Environment Variables di Zeabur:**
+   ```bash
+   DB_CONNECTION=mysql
+   DB_HOST=your-mysql-host
+   DB_PORT=3306
+   DB_DATABASE=your-database-name
+   DB_USERNAME=your-username
+   DB_PASSWORD=your-password
+   ```
 
+2. **Test Database Connection:**
+   ```bash
+   php artisan-test-db.php
+   # atau
+   npm run test-db
+   ```
+
+3. **Setup Database:**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+**Untuk SQLite (Development):**
 1. **Set Environment Variable di Zeabur:**
    ```bash
+   DB_CONNECTION=sqlite
    DB_DATABASE=database/database.sqlite
    ```
 
@@ -97,13 +141,6 @@ php artisan db:seed
    php artisan-setup-db.php
    php artisan migrate
    php artisan db:seed
-   ```
-
-3. **Verifikasi Database:**
-   ```bash
-   ls -la database/
-   php artisan tinker
-   # Di tinker: DB::connection()->getPdo();
    ```
 
 ### 📁 File Structure:
