@@ -36,7 +36,7 @@ defineProps<Props>();
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
         <form method="POST" action="/logout" class="block w-full">
-            <input type="hidden" name="_token" :value="$page.props.csrf_token" />
+            @csrf
             <button
                 type="submit"
                 class="flex w-full items-center px-2 py-1.5 text-sm hover:bg-accent"
