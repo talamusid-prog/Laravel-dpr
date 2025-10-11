@@ -19,15 +19,15 @@
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1 px-4 py-6 space-y-2">
+        <nav class="flex-1 px-4 py-6 space-y-3">
           <a 
             v-for="item in navigation" 
             :key="item.name"
             :href="item.href"
-            class="flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors"
+            class="flex items-center px-4 py-3 text-base font-medium rounded-md transition-colors"
             :class="[
               isActiveRoute(item.href) 
-                ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' 
+                ? 'bg-gradient-to-r from-red-500/20 to-red-600/20 text-red-700 border border-red-200 backdrop-blur-sm' 
                 : 'text-gray-700 hover:bg-gray-100'
             ]"
           >

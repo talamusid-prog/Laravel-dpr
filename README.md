@@ -29,13 +29,20 @@ MAIL_MAILER=log
 
 ### 🔑 Generate APP_KEY:
 
-Jalankan command berikut untuk generate APP_KEY:
+**IMPORTANT**: Set environment variable `APP_KEY` di Zeabur dashboard dengan nilai berikut:
 
-```bash
-php artisan key:generate --show
+```
+APP_KEY=base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=
 ```
 
-Copy hasilnya dan set sebagai environment variable `APP_KEY` di Zeabur.
+**Langkah-langkah:**
+1. Buka Zeabur dashboard
+2. Pilih project Laravel DPR
+3. Masuk ke tab "Environment Variables"
+4. Tambah variable baru:
+   - **Name**: `APP_KEY`
+   - **Value**: `base64:ObZwuispQlqu8/Tt2aVSF5o67x2q6EnDOTTxE3m1Cyk=`
+5. Save dan redeploy aplikasi
 
 ### 📁 File Structure:
 

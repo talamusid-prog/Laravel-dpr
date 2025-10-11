@@ -139,40 +139,11 @@
       </div>
     </div>
 
-    <!-- Quick Actions -->
-    <div class="mt-8">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
-        <div class="flex flex-wrap gap-4">
-          <a 
-            href="/admin/articles/create"
-            class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            <Plus class="w-4 h-4 mr-2" />
-            Buat Artikel Baru
-          </a>
-          <a 
-            href="/admin/events/create"
-            class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-          >
-            <Calendar class="w-4 h-4 mr-2" />
-            Tambah Event
-          </a>
-          <a 
-            href="/admin/gallery/create"
-            class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-          >
-            <Image class="w-4 h-4 mr-2" />
-            Upload Galeri
-          </a>
-        </div>
-      </div>
-    </div>
   </AdminLayout>
 </template>
 
 <script setup lang="ts">
-import { FileText, Eye, EyeOff, BarChart3, Edit, Plus, Calendar, Image } from 'lucide-vue-next';
+import { FileText, Eye, EyeOff, BarChart3, Edit } from 'lucide-vue-next';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 
 // Props
