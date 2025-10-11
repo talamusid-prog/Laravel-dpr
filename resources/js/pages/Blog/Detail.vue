@@ -65,7 +65,7 @@
                 </h1>
 
                 <!-- Meta Information -->
-                <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground mb-6">
                   <div class="flex items-center gap-1">
                     <User class="w-4 h-4" />
                     <span>{{ post?.author || 'Admin' }}</span>
@@ -77,6 +77,15 @@
                   <div class="flex items-center gap-1">
                     <Eye class="w-4 h-4" />
                     <span>{{ post?.views || 0 }}</span>
+                  </div>
+                  <!-- Share Button -->
+                  <div class="flex items-center">
+                    <ShareButton 
+                      :title="post?.title"
+                      :url="getCurrentUrl()"
+                      :description="post?.excerpt"
+                      button-text="Bagikan"
+                    />
                   </div>
                 </div>
               </div>
@@ -111,13 +120,7 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex flex-wrap items-center gap-3 mb-8">
-                  <ShareButton 
-                    :title="post?.title"
-                    :url="getCurrentUrl()"
-                    :description="post?.excerpt"
-                    button-text="Bagikan"
-                  />
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
                   <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
                     <Bookmark class="w-4 h-4" />
                     Simpan
