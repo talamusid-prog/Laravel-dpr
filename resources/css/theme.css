@@ -1,0 +1,176 @@
+/* CSS Variables for Theme System */
+:root {
+  /* Primary Colors */
+  --color-primary: #dc2626;
+  --color-primary-dark: #991b1b;
+  
+  /* Accent Colors */
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
+  
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-success-dark: #059669;
+  --color-warning: #f59e0b;
+  --color-gold: #fbbf24;
+  --color-gold-light: #fde68a;
+  
+  /* Dark Mode Colors */
+  --color-bg-dark: #0f172a;
+  --color-text-dark: #f8fafc;
+  --color-card-dark: #1e293b;
+  --color-border-dark: #334155;
+}
+
+/* Dark Mode */
+.dark {
+  --color-bg: var(--color-bg-dark);
+  --color-text: var(--color-text-dark);
+  --color-card: var(--color-card-dark);
+  --color-border: var(--color-border-dark);
+}
+
+/* Light Mode (default) */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1f2937;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
+}
+
+/* Apply theme colors to Tailwind classes */
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.border-primary {
+  border-color: var(--color-primary) !important;
+}
+
+.bg-primary-dark {
+  background-color: var(--color-primary-dark) !important;
+}
+
+.text-primary-dark {
+  color: var(--color-primary-dark) !important;
+}
+
+.bg-accent {
+  background-color: var(--color-accent) !important;
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
+.bg-accent-dark {
+  background-color: var(--color-accent-dark) !important;
+}
+
+.text-accent-dark {
+  color: var(--color-accent-dark) !important;
+}
+
+.bg-success {
+  background-color: var(--color-success) !important;
+}
+
+.text-success {
+  color: var(--color-success) !important;
+}
+
+.bg-success-dark {
+  background-color: var(--color-success-dark) !important;
+}
+
+.text-success-dark {
+  color: var(--color-success-dark) !important;
+}
+
+.bg-warning {
+  background-color: var(--color-warning) !important;
+}
+
+.text-warning {
+  color: var(--color-warning) !important;
+}
+
+.bg-gold {
+  background-color: var(--color-gold) !important;
+}
+
+.text-gold {
+  color: var(--color-gold) !important;
+}
+
+.bg-gold-light {
+  background-color: var(--color-gold-light) !important;
+}
+
+.text-gold-light {
+  color: var(--color-gold-light) !important;
+}
+
+/* Dark mode specific styles */
+.dark .bg-white {
+  background-color: var(--color-card-dark) !important;
+}
+
+.dark .text-gray-900 {
+  color: var(--color-text-dark) !important;
+}
+
+.dark .text-gray-700 {
+  color: var(--color-text-dark) !important;
+}
+
+.dark .border-gray-200 {
+  border-color: var(--color-border-dark) !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: var(--color-bg-dark) !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: var(--color-card-dark) !important;
+}
+
+/* Gradient backgrounds using theme colors */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.bg-gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, var(--color-success), var(--color-success-dark));
+}
+
+/* Hover effects with theme colors */
+.hover\:bg-primary:hover {
+  background-color: var(--color-primary) !important;
+}
+
+.hover\:text-primary:hover {
+  color: var(--color-primary) !important;
+}
+
+.hover\:border-primary:hover {
+  border-color: var(--color-primary) !important;
+}
+
+/* Focus states */
+.focus\:ring-primary:focus {
+  --tw-ring-color: var(--color-primary);
+}
+
+.focus\:border-primary:focus {
+  border-color: var(--color-primary) !important;
+}
