@@ -158,6 +158,11 @@ const isActiveRoute = (href: string): boolean => {
     return currentUrl === '/admin' || currentUrl === '/admin/';
   }
   
+  // Special case for settings - only active if exactly /admin/settings
+  if (href === '/admin/settings') {
+    return currentUrl === '/admin/settings' || currentUrl === '/admin/settings/';
+  }
+  
   // For other routes, check if current URL starts with the href
   return currentUrl.startsWith(href);
 };
