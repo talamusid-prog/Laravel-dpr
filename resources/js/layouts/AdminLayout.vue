@@ -115,6 +115,7 @@ import {
   Settings, 
   Palette,
   User, 
+  Users,
   Menu, 
   Bell,
   LogOut

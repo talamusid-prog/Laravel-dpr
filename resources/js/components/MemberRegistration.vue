@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+  <div class="max-w-4xl mx-auto p-6 bg-white rounded-xl border border-gray-200 mt-8">
     <!-- Header Section -->
     <div class="text-center mb-8">
       <!-- Badge -->

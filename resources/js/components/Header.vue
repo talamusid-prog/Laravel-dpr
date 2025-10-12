@@ -226,7 +226,7 @@ const handleNavigation = (path: string) => {
 
 const handleRegister = () => {
   isMenuOpen.value = false;
-  window.location.href = '/registration';
+  window.location.href = '/pendaftaran-anggota';
 };
 
 // Lifecycle
