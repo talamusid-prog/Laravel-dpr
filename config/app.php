@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://localhost'),
+    'url' => env('APP_URL', 'https://laravel-dpr.zeabur.app'),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,5 +122,15 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force HTTPS
+    |--------------------------------------------------------------------------
+    |
+    | Force HTTPS for all URLs in production
+    |
+    */
+    'force_https' => env('FORCE_HTTPS', true),
 
 ];

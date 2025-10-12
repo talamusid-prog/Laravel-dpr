@@ -15,8 +15,8 @@ class ForceHttps
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Force HTTPS in production
-        if (app()->environment('production') && !$request->secure()) {
+        // Force HTTPS in production or when force_https is enabled
+        if ((app()->environment('production') || config('app.force_https', false)) && !$request->secure()) {
             return redirect()->secure($request->getRequestUri());
         }
 
@@ -28,6 +28,11 @@ class ForceHttps
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('X-Frame-Options', 'DENY');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
+        
+        // Force HTTPS for all responses in production
+        if (app()->environment('production') || config('app.force_https', false)) {
+            $response->headers->set('Content-Security-Policy', "upgrade-insecure-requests");
+        }
         
         return $response;
     }
