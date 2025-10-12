@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             AspirationSeeder::class,
             ArticleSeeder::class,
+            MemberRegistrationSeeder::class,
         ]);
     }
 }
