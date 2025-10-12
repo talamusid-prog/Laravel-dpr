@@ -9,7 +9,7 @@
       </div>
       
       <!-- Title -->
-      <h1 class="text-3xl font-bold text-secondary mb-4">
+      <h1 class="text-3xl font-bold text-black mb-4">
         Formulir Pendaftaran Relawan bAGUS
       </h1>
       
