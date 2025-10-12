@@ -102,7 +102,7 @@
                 </div>
                 
                 <!-- Share Button - Top Right Corner -->
-                <div class="absolute top-4 right-4 z-20">
+                <div class="absolute top-4 right-4 z-50">
                   <ShareButton 
                     :title="post?.title"
                     :url="getCurrentUrl()"
@@ -316,7 +316,6 @@ import {
   User, 
   Clock, 
   Eye, 
-  Share2, 
   Bookmark, 
   MessageCircle, 
   Tag, 
