@@ -24,6 +24,10 @@ Route::get('aspirasi', function () {
     return Inertia::render('Aspirasi');
 })->name('aspirasi');
 
+Route::get('pendaftaran-anggota', function () {
+    return Inertia::render('MemberRegistration');
+})->name('member.registration');
+
 Route::post('aspirasi', [App\Http\Controllers\AspirationController::class, 'store'])->name('aspirasi.store');
 
 require __DIR__.'/settings.php';
