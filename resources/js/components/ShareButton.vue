@@ -20,7 +20,7 @@
     >
       <div
         v-if="isOpen"
-        class="absolute bottom-full left-0 mb-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-[9999]"
+        class="absolute top-0 right-full mr-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-[9999]"
         @click.stop
       >
         <div class="p-4">
