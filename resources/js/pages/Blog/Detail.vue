@@ -246,7 +246,10 @@
                     class="flex-shrink-0 px-1"
                     :style="{ width: slideWidth + 'px' }"
                   >
-                    <article class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                    <article 
+                      @click="navigateTo(`/blog/${relatedArticle.slug}`)"
+                      class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                    >
                       <!-- Article Image -->
                       <div class="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 relative overflow-hidden">
                         <img 

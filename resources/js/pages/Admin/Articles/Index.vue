@@ -205,6 +205,7 @@ import { ref, computed } from 'vue';
 import { Plus, FileText, Edit, Trash2 } from 'lucide-vue-next';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 // Props
 interface Props {
@@ -315,17 +316,37 @@ const bulkAction = (action: string) => {
   }
 };
 
-const deleteArticle = (id: number) => {
-  if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
+const deleteArticle = async (id: number) => {
+  const result = await Swal.fire({
+    title: 'Hapus Artikel?',
+    text: 'Apakah Anda yakin ingin menghapus artikel ini? Tindakan ini tidak dapat dibatalkan.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ya, Hapus',
+    cancelButtonText: 'Batal',
+    confirmButtonColor: '#ef4444',
+    cancelButtonColor: '#6b7280'
+  });
+
+  if (result.isConfirmed) {
     // Use Inertia.js to delete article
     router.delete(`/admin/articles/${id}`, {
-      onSuccess: () => {
-        // Article deleted successfully, page will reload automatically
-        console.log('Article deleted successfully');
+      onSuccess: async () => {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: 'Artikel berhasil dihapus.',
+          confirmButtonColor: '#10b981'
+        });
       },
-      onError: (errors) => {
+      onError: async (errors) => {
         console.error('Error deleting article:', errors);
-        alert('Gagal menghapus artikel');
+        await Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: 'Gagal menghapus artikel.',
+          confirmButtonColor: '#ef4444'
+        });
       }
     });
   }
