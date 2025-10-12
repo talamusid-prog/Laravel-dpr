@@ -20,7 +20,7 @@
     >
       <div
         v-if="isOpen"
-        class="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+        class="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-[9999]"
         @click.stop
       >
         <div class="p-4">
@@ -99,7 +99,7 @@
     <div
       v-if="isOpen"
       @click="closeShareMenu"
-      class="fixed inset-0 z-40"
+      class="fixed inset-0 z-[9998]"
     ></div>
   </div>
 </template>
