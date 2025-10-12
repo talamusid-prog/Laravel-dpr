@@ -78,20 +78,11 @@
                     <Eye class="w-4 h-4" />
                     <span>{{ post?.views || 0 }}</span>
                   </div>
-                  <!-- Share Button -->
-                  <div class="flex items-center">
-                    <ShareButton 
-                      :title="post?.title"
-                      :url="getCurrentUrl()"
-                      :description="post?.excerpt"
-                      button-text="Bagikan"
-                    />
-                  </div>
                 </div>
               </div>
 
               <!-- Featured Image -->
-              <div class="w-full max-w-4xl mx-auto mb-4 rounded-lg overflow-hidden">
+              <div class="w-full max-w-4xl mx-auto mb-4 rounded-lg overflow-hidden relative">
                 <img
                   v-if="post?.featured_image_url"
                   :src="post.featured_image_url"
@@ -108,6 +99,16 @@
                     </div>
                     <span class="text-muted-foreground font-medium">Artikel</span>
                   </div>
+                </div>
+                
+                <!-- Share Button - Top Right Corner -->
+                <div class="absolute top-4 right-4 z-20">
+                  <ShareButton 
+                    :title="post?.title"
+                    :url="getCurrentUrl()"
+                    :description="post?.excerpt"
+                    button-text="Bagikan"
+                  />
                 </div>
               </div>
 
@@ -161,13 +162,7 @@
 
                 <!-- Article Footer -->
                 <div class="mt-8 pt-6 border-t border-gray-200">
-                  <ShareButton 
-                    :title="post?.title"
-                    :url="getCurrentUrl()"
-                    :description="post?.excerpt"
-                    button-text="Bagikan Artikel"
-                    class="ml-auto"
-                  />
+                  <!-- Footer content can be added here if needed -->
                 </div>
               </div>
             </div>
