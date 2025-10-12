@@ -2,8 +2,8 @@
   <div class="relative">
     <button
       @click="toggleShareMenu"
-      class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-      :class="{ 'bg-primary/90 shadow-xl': isOpen }"
+      class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors"
+      :class="{ 'bg-gray-50': isOpen }"
     >
       <Share2 class="w-4 h-4" />
       {{ buttonText }}
@@ -20,15 +20,11 @@
     >
       <div
         v-if="isOpen"
-        class="absolute top-full right-0 mt-2 w-64 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[9999]"
+        class="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-[9999]"
         @click.stop
-        style="position: fixed; transform: translateX(-100%);"
       >
-        <div class="p-4 bg-gradient-to-br from-white to-gray-50">
-          <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <Share2 class="w-4 h-4 text-primary" />
-            Bagikan artikel ini
-          </h3>
+        <div class="p-4">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">Bagikan artikel ini</h3>
           
           <!-- Share Options -->
           <div class="space-y-2">
