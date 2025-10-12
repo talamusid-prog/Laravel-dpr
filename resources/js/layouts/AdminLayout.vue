@@ -145,6 +145,7 @@ const navigation = computed(() => [
     badge: (page.props.aspirationStats as any)?.new ? (page.props.aspirationStats as any).new.toString() : '0'
   },
   { name: 'Kalender', href: '/admin/events', icon: Calendar },
+  { name: 'Pendaftaran Anggota', href: '/admin/member-registrations', icon: Users },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
   { name: 'Pengaturan', href: '/admin/settings', icon: Settings },
   { name: 'Pengaturan Warna', href: '/admin/settings/colors', icon: Palette },

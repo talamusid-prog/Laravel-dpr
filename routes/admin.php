@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\MemberRegistrationController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Authentication
@@ -56,6 +57,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Events
     Route::resource('events', EventController::class);
     Route::get('events/calendar', [EventController::class, 'calendar'])->name('events.calendar');
+    
+    // Member Registrations
+    Route::resource('member-registrations', MemberRegistrationController::class);
+    Route::patch('member-registrations/{member_registration}/status', [MemberRegistrationController::class, 'updateStatus'])->name('member-registrations.update-status');
     
     // Analytics
     Route::get('analytics', [AnalyticsController::class, 'index'])->name('analytics');
