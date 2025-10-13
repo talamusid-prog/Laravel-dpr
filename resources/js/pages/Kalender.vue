@@ -18,17 +18,6 @@
                 Jadwal kegiatan DPRD Sulawesi Barat
               </p>
             </div>
-            
-            <!-- Admin Link Button -->
-            <div class="flex gap-3">
-              <a 
-                href="/admin/events"
-                class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
-              >
-                <Settings class="w-4 h-4 mr-2" />
-                Kelola Jadwal
-              </a>
-            </div>
           </div>
         </div>
 
@@ -212,7 +201,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { Calendar, ChevronLeft, ChevronRight, Clock, MapPin, Users, Settings } from 'lucide-vue-next';
+import { Calendar, ChevronLeft, ChevronRight, Clock, MapPin, Users } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 
