@@ -2,11 +2,11 @@
   <div class="relative">
     <button
       @click="toggleShareMenu"
-      class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors"
+      class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white border border-gray-300 rounded-lg text-xs sm:text-sm hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md"
       :class="{ 'bg-gray-50': isOpen }"
     >
-      <Share2 class="w-4 h-4" />
-      {{ buttonText }}
+      <Share2 class="w-3 h-3 sm:w-4 sm:h-4" />
+      <span class="hidden sm:inline">{{ buttonText }}</span>
     </button>
 
     <!-- Share Menu Dropdown -->
@@ -50,10 +50,10 @@
               <span class="text-sm text-gray-700">Facebook</span>
             </button>
 
-            <!-- Twitter -->
+            <!-- Twitter - Hidden on mobile -->
             <button
               @click="shareToTwitter"
-              class="w-full flex items-center gap-3 p-2 text-left hover:bg-blue-50 rounded-md transition-colors"
+              class="hidden sm:flex w-full items-center gap-3 p-2 text-left hover:bg-blue-50 rounded-md transition-colors"
             >
               <div class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
                 <Twitter class="w-4 h-4 text-white" />
@@ -61,10 +61,10 @@
               <span class="text-sm text-gray-700">Twitter</span>
             </button>
 
-            <!-- LinkedIn -->
+            <!-- LinkedIn - Hidden on mobile -->
             <button
               @click="shareToLinkedIn"
-              class="w-full flex items-center gap-3 p-2 text-left hover:bg-blue-50 rounded-md transition-colors"
+              class="hidden sm:flex w-full items-center gap-3 p-2 text-left hover:bg-blue-50 rounded-md transition-colors"
             >
               <div class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
                 <Linkedin class="w-4 h-4 text-white" />

@@ -33,7 +33,7 @@
       </div>
 
       <!-- Main Content Container -->
-      <div class="bg-white rounded-2xl shadow-2xl p-4 lg:p-12">
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 lg:p-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           <!-- Left Panel - Statistics & CTA -->
           <div class="text-center">

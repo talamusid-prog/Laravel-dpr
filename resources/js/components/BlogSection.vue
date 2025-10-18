@@ -1,34 +1,28 @@
 <template>
-  <section id="blog" class="bg-white py-12 pb-16">
+  <section id="blog" class="bg-white py-4 sm:py-12 pb-8 sm:pb-16">
     <div class="max-w-6xl mx-auto px-4">
       <!-- Header Section -->
-      <div class="text-center mb-12">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-red-100 text-red-800 text-sm font-medium px-4 py-2 rounded-full mb-4">
-          <BookOpen class="w-4 h-4" />
-          BERITA TERBARU
-        </div>
-        
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 sm:mb-8 gap-3 sm:gap-0">
         <!-- Title -->
         <h2 
           class="text-3xl lg:text-4xl font-bold mb-4"
           style="background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent;"
         >
-          Berita Terbaru
+          Berita Utama
         </h2>
+        
+        <!-- View All Link -->
+        <button 
+          class="bg-red-600 hover:bg-red-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors self-end sm:self-auto shadow-sm hover:shadow-md"
+          @click="navigateToPost('all')"
+        >
+          Lihat Semua
+        </button>
       </div>
 
       <!-- Loading State -->
-      <div v-if="loading" class="grid lg:grid-cols-3 gap-8">
-        <!-- Left Column Skeleton -->
-        <div class="lg:col-span-2">
-          <div class="h-96 bg-gray-200 rounded-2xl animate-pulse"></div>
-        </div>
-        
-        <!-- Right Column Skeleton -->
-        <div class="space-y-6">
-          <div v-for="i in 3" :key="i" class="h-32 bg-gray-200 rounded-lg animate-pulse"></div>
-        </div>
+      <div v-if="loading" class="relative">
+        <div class="h-80 bg-gray-200 rounded-2xl animate-pulse"></div>
       </div>
 
       <!-- Empty State -->
@@ -40,21 +34,32 @@
         <p class="text-gray-500">Berita akan segera hadir.</p>
       </div>
 
-      <!-- Main Content -->
-      <div v-else class="grid lg:grid-cols-3 gap-8">
-        <!-- Featured Article (Left Column) -->
-        <div class="lg:col-span-2">
-          <div class="relative h-96 rounded-2xl overflow-hidden">
-            <!-- Slide Container -->
-            <div class="relative h-full">
-              <div 
-                v-for="(post, index) in posts.slice(0, 3)" 
-                :key="post.id"
-                class="absolute inset-0 transition-opacity duration-500"
-                :class="{ 'opacity-100': currentSlide === index, 'opacity-0': currentSlide !== index }"
-              >
+      <!-- Main Carousel Content -->
+      <div v-else class="relative">
+        <!-- Carousel Container -->
+        <div class="relative overflow-hidden rounded-2xl">
+          <!-- Slide Container -->
+          <div 
+            class="flex transition-transform duration-700 ease-out"
+            :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+            @touchstart="handleTouchStart"
+            @touchmove="handleTouchMove"
+            @touchend="handleTouchEnd"
+          >
+            <!-- Slide Pages -->
+            <div 
+              v-for="(page, pageIndex) in paginatedPosts" 
+              :key="pageIndex"
+              class="w-full flex-shrink-0"
+            >
+              <!-- Cards Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-1 lg:gap-0">
+                <!-- Mobile: Show only first 2 cards, Desktop: Show all 4 cards -->
                 <div 
-                  class="relative group cursor-pointer h-full"
+                  v-for="(post, index) in page" 
+                  :key="post.id"
+                  class="relative group cursor-pointer aspect-[1300/1900] max-h-80 sm:max-h-96 rounded-xl overflow-hidden"
+                  :class="{ 'hidden lg:block': index >= 2 }"
                   @click="navigateToPost(post.slug)"
                 >
                   <!-- Featured Image or Placeholder -->
@@ -65,122 +70,68 @@
                       class="w-full h-full object-cover"
                     />
                   </div>
-                  <div v-else class="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <BookOpen class="w-12 h-12 text-primary/60" />
+                  <div v-else class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                    <BookOpen class="w-12 h-12 text-blue-400" />
                   </div>
                   
                   <!-- Dark Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                   
                   <!-- Content Overlay -->
-                  <div class="absolute bottom-0 p-6 text-white">
-                    <!-- Date -->
-                    <p class="text-sm text-white/80 mb-2">
-                      {{ formatDate(post.published_at) }}
-                    </p>
-                    
-                    <!-- Title -->
-                    <h3 class="text-2xl lg:text-3xl font-bold text-red-300 leading-tight">
-                      {{ post.title }}
-                    </h3>
+                  <div class="absolute bottom-0 left-0 right-0 text-white">
+                    <!-- Title with Glassmorphism Effect -->
+                    <div class="backdrop-blur-md bg-white/10 rounded-xl p-3 sm:p-4 border border-white/20 min-h-16 sm:min-h-20">
+                      <!-- Berita Utama Label inside glassmorphism -->
+                      <div class="inline-block bg-red-600/90 text-white text-xs font-medium px-2 py-0.5 rounded-full mb-3">
+                        Berita Utama
+                      </div>
+                      
+                      <!-- Title -->
+                      <h3 class="text-xs sm:text-sm lg:text-base font-bold leading-tight line-clamp-2 sm:line-clamp-3 text-white drop-shadow-lg">
+                        {{ post.title }}
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Navigation Controls -->
-            <div v-if="posts.length > 1" class="absolute left-4 right-4 top-1/2 -translate-y-1/2 flex justify-between">
-              <button 
-                @click="previousSlide"
-                class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300"
-              >
-                <ChevronLeft class="w-5 h-5 text-white" />
-              </button>
-              <button 
-                @click="nextSlide"
-                class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300"
-              >
-                <ChevronRight class="w-5 h-5 text-white" />
-              </button>
-            </div>
-
-            <!-- Pagination Dots -->
-            <div v-if="posts.length > 1" class="flex justify-center mt-6 space-x-2">
-              <button 
-                v-for="(post, index) in posts.slice(0, 3)" 
-                :key="index"
-                @click="goToSlide(index)"
-                class="w-3 h-3 rounded-full transition-colors"
-                :class="currentSlide === index ? 'bg-red-600' : 'bg-white border-2 border-gray-300'"
-              ></button>
-            </div>
           </div>
         </div>
 
-        <!-- Sidebar Articles (Right Column) -->
-        <div class="lg:col-span-1">
-          <div class="space-y-4 max-h-96 overflow-y-auto pr-2">
-            <div 
-              v-for="(post, index) in posts.slice(1, 5)" 
-              :key="post.id"
-              class="flex gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer group transition-colors"
-              :class="{ 'hidden lg:flex': index >= 2 }"
-              @click="navigateToPost(post.slug)"
-            >
-              <!-- Thumbnail -->
-              <div class="flex-shrink-0">
-                <div class="w-20 h-20 rounded-lg overflow-hidden">
-                  <img 
-                    v-if="post.featured_image_url"
-                    :src="post.featured_image_url" 
-                    :alt="post.title"
-                    class="w-full h-full object-cover"
-                  />
-                  <div v-else class="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <BookOpen class="w-6 h-6 text-primary/60" />
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Content -->
-              <div class="flex-1 min-w-0">
-                <!-- Category Tag -->
-                <span class="inline-block bg-primary text-white text-xs font-medium px-2 py-1 rounded mb-2">
-                  BERITA TERBARU
-                </span>
-                
-                <!-- Title -->
-                <h4 class="text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors line-clamp-2 mb-1">
-                  {{ post.title }}
-                </h4>
-                
-                <!-- Date -->
-                <p class="text-xs text-gray-500">
-                  {{ formatDate(post.published_at) }}
-                </p>
-              </div>
-            </div>
-          </div>
+        <!-- Navigation Controls -->
+        <div v-if="totalPages > 1" class="absolute left-2 right-2 sm:left-4 sm:right-4 top-1/2 -translate-y-1/2 flex justify-between">
+          <button 
+            @click="previousSlide"
+            class="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white transition-all duration-300 shadow-lg"
+          >
+            <ChevronLeft class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+          </button>
+          <button 
+            @click="nextSlide"
+            class="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white transition-all duration-300 shadow-lg"
+          >
+            <ChevronRight class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+          </button>
         </div>
-      </div>
 
-      <!-- View All Button -->
-      <div class="text-center mt-12">
-        <button 
-          class="inline-flex items-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white text-sm sm:text-lg font-medium px-4 sm:px-8 py-2 sm:py-3 rounded-lg transition-colors"
-          @click="navigateToPost('all')"
-        >
-          <span>Lihat Semua Berita</span>
-          <ArrowRight class="w-4 h-4" />
-        </button>
+        <!-- Pagination Dots -->
+        <div v-if="totalPages > 1" class="flex justify-center mt-6 space-x-2">
+          <button 
+            v-for="pageIndex in totalPages" 
+            :key="pageIndex"
+            @click="goToSlide(pageIndex - 1)"
+            class="w-3 h-3 rounded-full transition-colors"
+            :class="currentSlide === (pageIndex - 1) ? 'bg-orange-500' : 'bg-gray-300'"
+          ></button>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { BookOpen, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
+import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { router } from '@inertiajs/vue3';
 
 // Types
@@ -200,10 +151,29 @@ const props = defineProps<{
 // Reactive data
 const loading = ref(false);
 const currentSlide = ref(0);
-const autoSlideInterval = ref<number | null>(null);
+const touchStartX = ref(0);
+const touchEndX = ref(0);
 
-// Use props data instead of dummy data
-const posts = computed(() => props.posts || []);
+// Use props data
+const posts = computed(() => {
+  return props.posts || [];
+});
+
+// Pagination logic - responsive posts per page
+const postsPerPage = computed(() => {
+  // Always use 4 cards per page, but CSS will handle responsive display
+  return 4;
+});
+
+const totalPages = computed(() => Math.ceil(posts.value.length / postsPerPage.value));
+
+const paginatedPosts = computed(() => {
+  const pages = [];
+  for (let i = 0; i < posts.value.length; i += postsPerPage.value) {
+    pages.push(posts.value.slice(i, i + postsPerPage.value));
+  }
+  return pages;
+});
 
 // Methods
 const navigateToPost = (slug: string) => {
@@ -215,24 +185,26 @@ const navigateToPost = (slug: string) => {
 };
 
 
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('id-ID', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  });
-};
+// const formatDate = (dateString: string): string => {
+//   const date = new Date(dateString);
+//   return date.toLocaleDateString('id-ID', {
+//     day: '2-digit',
+//     month: 'short',
+//     year: 'numeric'
+//   });
+// };
 
 const nextSlide = () => {
-  if (posts.value.length > 1) {
-    currentSlide.value = (currentSlide.value + 1) % Math.min(3, posts.value.length);
+  if (totalPages.value > 1) {
+    const oldSlide = currentSlide.value;
+    currentSlide.value = (currentSlide.value + 1) % totalPages.value;
+    console.log('Sliding from', oldSlide, 'to', currentSlide.value);
   }
 };
 
 const previousSlide = () => {
-  if (posts.value.length > 1) {
-    currentSlide.value = currentSlide.value === 0 ? Math.min(2, posts.value.length - 1) : currentSlide.value - 1;
+  if (totalPages.value > 1) {
+    currentSlide.value = currentSlide.value === 0 ? totalPages.value - 1 : currentSlide.value - 1;
   }
 };
 
@@ -240,32 +212,32 @@ const goToSlide = (index: number) => {
   currentSlide.value = index;
 };
 
-const startAutoSlide = () => {
-  if (posts.value.length > 1) {
-    autoSlideInterval.value = setInterval(() => {
-      nextSlide();
-    }, 5000);
-  }
+// Touch events for swipe
+const handleTouchStart = (e: TouchEvent) => {
+  touchStartX.value = e.touches[0].clientX;
 };
 
-const stopAutoSlide = () => {
-  if (autoSlideInterval.value) {
-    clearInterval(autoSlideInterval.value);
-    autoSlideInterval.value = null;
-  }
+const handleTouchMove = (e: TouchEvent) => {
+  touchEndX.value = e.touches[0].clientX;
 };
 
-// Lifecycle
-onMounted(() => {
-  // Start auto slide if we have posts
-  if (posts.value.length > 1) {
-    startAutoSlide();
+const handleTouchEnd = () => {
+  if (!touchStartX.value || !touchEndX.value) return;
+  
+  const distance = touchStartX.value - touchEndX.value;
+  const isLeftSwipe = distance > 50;
+  const isRightSwipe = distance < -50;
+  
+  if (isLeftSwipe) {
+    nextSlide();
+  } else if (isRightSwipe) {
+    previousSlide();
   }
-});
-
-onUnmounted(() => {
-  stopAutoSlide();
-});
+  
+  // Reset touch values
+  touchStartX.value = 0;
+  touchEndX.value = 0;
+};
 </script>
 
 <style scoped>

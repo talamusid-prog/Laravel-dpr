@@ -120,17 +120,6 @@
                   <p class="text-lg text-gray-800 font-medium">{{ post.excerpt }}</p>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-                  <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
-                    <Bookmark class="w-4 h-4" />
-                    Simpan
-                  </button>
-                  <button class="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
-                    <MessageCircle class="w-4 h-4" />
-                    Komentar
-                  </button>
-                </div>
 
                 <!-- Separator -->
                 <div class="border-t border-gray-200 mb-8"></div>
@@ -141,6 +130,59 @@
                     class="leading-loose text-gray-800"
                     v-html="formatContentWithHeadings(post?.content || '')"
                   ></div>
+                </div>
+
+                <!-- Share Section -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                  <div class="text-center">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Bagikan Artikel Ini</h3>
+                    <div class="flex flex-nowrap items-center justify-center gap-2 sm:gap-3 overflow-x-auto pb-2">
+                      <!-- WhatsApp -->
+                      <button
+                        @click="shareToWhatsApp"
+                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                      >
+                        <MessageCircle class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span class="hidden sm:inline">WhatsApp</span>
+                      </button>
+
+                      <!-- Facebook -->
+                      <button
+                        @click="shareToFacebook"
+                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                      >
+                        <Facebook class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span class="hidden sm:inline">Facebook</span>
+                      </button>
+
+                      <!-- Twitter -->
+                      <button
+                        @click="shareToTwitter"
+                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                      >
+                        <Twitter class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span class="hidden sm:inline">Twitter</span>
+                      </button>
+
+                      <!-- LinkedIn -->
+                      <button
+                        @click="shareToLinkedIn"
+                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                      >
+                        <Linkedin class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span class="hidden sm:inline">LinkedIn</span>
+                      </button>
+
+                      <!-- Copy Link -->
+                      <button
+                        @click="copyLink"
+                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                      >
+                        <Copy class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span class="hidden sm:inline">Salin Link</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Tags Section -->
@@ -305,6 +347,26 @@
     
     <!-- Back to Top Button -->
     <BackToTop />
+
+    <!-- Copy Success Toast -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 scale-95 translate-y-2"
+      enter-to-class="opacity-100 scale-100 translate-y-0"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100 translate-y-0"
+      leave-to-class="opacity-0 scale-95 translate-y-2"
+    >
+      <div
+        v-if="copySuccess"
+        class="fixed bottom-4 right-4 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm font-medium"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Link berhasil disalin!
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -319,10 +381,13 @@ import {
   User, 
   Clock, 
   Eye, 
-  Bookmark, 
   MessageCircle, 
   Tag, 
-  BookOpen 
+  BookOpen,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Copy
 } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
@@ -525,6 +590,65 @@ const navigateToTag = (tag: string) => {
 
 const getCurrentUrl = () => {
   return window.location.href;
+};
+
+// Share functions
+const getShareUrl = () => {
+  return getCurrentUrl();
+};
+
+const getShareTitle = () => {
+  return post.value?.title || document.title;
+};
+
+const getShareText = () => {
+  return post.value?.excerpt || post.value?.title || document.title;
+};
+
+const shareToWhatsApp = () => {
+  const url = `https://wa.me/?text=${encodeURIComponent(getShareTitle() + ' - ' + getShareUrl())}`;
+  window.open(url, '_blank');
+};
+
+const shareToFacebook = () => {
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`;
+  window.open(url, '_blank');
+};
+
+const shareToTwitter = () => {
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}&url=${encodeURIComponent(getShareUrl())}`;
+  window.open(url, '_blank');
+};
+
+const shareToLinkedIn = () => {
+  const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getShareUrl())}`;
+  window.open(url, '_blank');
+};
+
+const copySuccess = ref(false);
+
+const copyLink = async () => {
+  try {
+    await navigator.clipboard.writeText(getShareUrl());
+    showCopySuccess();
+  } catch (err) {
+    console.error('Failed to copy link:', err);
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = getShareUrl();
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    showCopySuccess();
+  }
+};
+
+const showCopySuccess = () => {
+  copySuccess.value = true;
+  setTimeout(() => {
+    copySuccess.value = false;
+  }, 2000);
 };
 
 
