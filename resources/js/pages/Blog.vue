@@ -126,6 +126,7 @@
                 <div class="flex items-center gap-2">
                   <User class="w-4 h-4" />
                   <span>Admin</span>
+                  <img src="/verified.png" alt="Verified" class="w-4 h-4" />
                 </div>
                 <div class="flex items-center gap-2">
                   <Eye class="w-4 h-4" />
@@ -205,7 +206,7 @@ import {
   User, 
   Eye, 
   ChevronLeft, 
-  ChevronRight 
+  ChevronRight
 } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';

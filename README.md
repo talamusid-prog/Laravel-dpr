@@ -1,4 +1,4 @@
-# Laravel DPR Project
+# Dr. Ir. H. AGUS AMBO DJIWA, M.P. - DPR Project
 
 Aplikasi web untuk DPR (Dewan Perwakilan Rakyat) dengan fitur admin panel, blog, aspirasi, dan manajemen event.
 

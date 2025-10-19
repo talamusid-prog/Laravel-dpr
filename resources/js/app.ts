@@ -6,7 +6,7 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { initializeTheme } from './plugins/theme';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Dr. Ir. H. AGUS AMBO DJIWA, M.P.';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),

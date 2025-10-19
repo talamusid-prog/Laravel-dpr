@@ -5,8 +5,17 @@
         <!-- Company Info -->
         <div class="lg:col-span-1">
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span class="text-white font-bold text-lg">DPR</span>
+            <div class="flex items-center space-x-2">
+              <img 
+                src="/logo.png" 
+                alt="DPR Logo"
+                class="w-10 h-10 object-contain"
+              />
+              <img 
+                src="/logo2.png" 
+                alt="RI Logo"
+                class="w-10 h-10 object-contain"
+              />
             </div>
             <div>
               <h3 class="text-lg font-bold">DPR-RI</h3>

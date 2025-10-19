@@ -2,10 +2,10 @@
   <section id="blog" class="bg-white py-4 sm:py-12 pb-8 sm:pb-16">
     <div class="max-w-6xl mx-auto px-4">
       <!-- Header Section -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 sm:mb-8 gap-3 sm:gap-0">
+      <div class="flex flex-row justify-between items-center mb-2 sm:mb-8 gap-3">
         <!-- Title -->
         <h2 
-          class="text-3xl lg:text-4xl font-bold mb-4"
+          class="text-3xl lg:text-4xl font-bold"
           style="background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent;"
         >
           Berita Utama
@@ -13,7 +13,7 @@
         
         <!-- View All Link -->
         <button 
-          class="bg-red-600 hover:bg-red-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors self-end sm:self-auto shadow-sm hover:shadow-md"
+          class="bg-red-600 hover:bg-red-700 text-white font-medium text-xs px-3 py-1.5 rounded-lg transition-colors shadow-sm hover:shadow-md flex-shrink-0"
           @click="navigateToPost('all')"
         >
           Lihat Semua

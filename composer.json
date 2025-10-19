@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/vue-starter-kit",
+    "name": "dpr/agus-ambo-djiwa",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Aplikasi web untuk Dr. Ir. H. AGUS AMBO DJIWA, M.P. - Anggota DPR-RI.",
     "keywords": [
         "laravel",
         "framework"

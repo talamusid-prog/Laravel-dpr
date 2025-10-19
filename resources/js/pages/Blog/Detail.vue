@@ -69,6 +69,7 @@
                   <div class="flex items-center gap-1">
                     <User class="w-4 h-4" />
                     <span>{{ post?.author || 'Admin' }}</span>
+                    <img src="/verified.png" alt="Verified" class="w-4 h-4" />
                   </div>
                   <div class="flex items-center gap-1">
                     <Clock class="w-4 h-4" />
@@ -140,45 +141,45 @@
                       <!-- WhatsApp -->
                       <button
                         @click="shareToWhatsApp"
-                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1 sm:gap-2 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-green-500 hover:bg-green-600 text-white rounded-full text-sm sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
                       >
-                        <MessageCircle class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <MessageCircle class="w-4 h-4 sm:w-4 sm:h-4" />
                         <span class="hidden sm:inline">WhatsApp</span>
                       </button>
 
                       <!-- Facebook -->
                       <button
                         @click="shareToFacebook"
-                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1 sm:gap-2 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
                       >
-                        <Facebook class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Facebook class="w-4 h-4 sm:w-4 sm:h-4" />
                         <span class="hidden sm:inline">Facebook</span>
                       </button>
 
                       <!-- Twitter -->
                       <button
                         @click="shareToTwitter"
-                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1 sm:gap-2 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-full text-sm sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
                       >
-                        <Twitter class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Twitter class="w-4 h-4 sm:w-4 sm:h-4" />
                         <span class="hidden sm:inline">Twitter</span>
                       </button>
 
                       <!-- LinkedIn -->
                       <button
                         @click="shareToLinkedIn"
-                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1 sm:gap-2 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-full text-sm sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
                       >
-                        <Linkedin class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Linkedin class="w-4 h-4 sm:w-4 sm:h-4" />
                         <span class="hidden sm:inline">LinkedIn</span>
                       </button>
 
                       <!-- Copy Link -->
                       <button
                         @click="copyLink"
-                        class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1 sm:gap-2 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full text-sm sm:text-sm font-medium transition-colors shadow-sm hover:shadow-md flex-shrink-0"
                       >
-                        <Copy class="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Copy class="w-4 h-4 sm:w-4 sm:h-4" />
                         <span class="hidden sm:inline">Salin Link</span>
                       </button>
                     </div>

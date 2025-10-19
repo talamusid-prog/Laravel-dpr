@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-[70vh] max-h-[70vh] sm:min-h-[60vh] sm:max-h-none overflow-hidden pt-8 md:pt-10">
+  <section class="relative min-h-[95vh] max-h-[95vh] sm:min-h-[60vh] sm:max-h-none overflow-hidden pt-8 md:pt-10">
     <!-- Background Gradient -->
     <div class="absolute inset-0 bg-gradient-primary"></div>
     
