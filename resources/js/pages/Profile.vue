@@ -308,9 +308,9 @@
                 Untuk aspirasi, saran, atau pertanyaan terkait program pembangunan daerah
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
-                <button class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium px-6 py-3 rounded-[30px] transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25">
-                  <BookOpen class="w-5 h-5" />
-                  Kirim Aspirasi
+                <button @click="openSubscriptionModal" class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium px-6 py-3 rounded-[30px] transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25">
+                  <Bell class="w-5 h-5" />
+                  Ikuti
                 </button>
                 <button class="inline-flex items-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white font-medium px-6 py-3 rounded-[30px] transition-all duration-300">
                   <Calendar class="w-5 h-5" />
@@ -325,11 +325,32 @@
     
     <!-- Footer -->
     <Footer />
+
+    <!-- Subscription Modal -->
+    <SubscriptionModal 
+      :is-open="isSubscriptionModalOpen" 
+      @close="closeSubscriptionModal"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Users, BookOpen, GraduationCap, Award, Calendar } from 'lucide-vue-next';
+import { ref } from 'vue';
+import { Users, BookOpen, GraduationCap, Award, Calendar, Bell } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import SubscriptionModal from '@/components/SubscriptionModal.vue';
+
+// State
+const isSubscriptionModalOpen = ref(false);
+
+// Methods
+const openSubscriptionModal = () => {
+  isSubscriptionModalOpen.value = true;
+};
+
+const closeSubscriptionModal = () => {
+  isSubscriptionModalOpen.value = false;
+};
+
 </script>

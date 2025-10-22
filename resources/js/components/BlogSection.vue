@@ -178,9 +178,9 @@ const paginatedPosts = computed(() => {
 // Methods
 const navigateToPost = (slug: string) => {
   if (slug === 'all') {
-    router.visit('/blog');
+    router.visit('/berita-utama');
   } else {
-    router.visit(`/blog/${slug}`);
+    router.visit(`/berita-utama/${slug}`);
   }
 };
 

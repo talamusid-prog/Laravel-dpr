@@ -85,7 +85,7 @@
         <!-- Image -->
         <div class="aspect-w-16 aspect-h-9 bg-gray-200">
           <img 
-            :src="gallery.thumbnail_path || gallery.image_path" 
+            :src="gallery.thumbnail_url || gallery.image_url" 
             :alt="gallery.title"
             class="w-full h-48 object-cover"
           />
@@ -112,10 +112,6 @@
             {{ gallery.location }}
           </div>
           
-          <div v-if="gallery.photographer" class="text-xs text-gray-500 mb-3">
-            <User class="w-3 h-3 inline mr-1" />
-            {{ gallery.photographer }}
-          </div>
           
           <!-- Actions -->
           <div class="flex items-center justify-between">
@@ -185,8 +181,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Plus, Upload, Edit, Trash2, Image, MapPin, User } from 'lucide-vue-next';
+import { Plus, Upload, Edit, Trash2, Image, MapPin } from 'lucide-vue-next';
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import { router } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 // Props
 interface Props {
@@ -195,11 +193,13 @@ interface Props {
       id: number;
       title: string;
       description?: string;
+      image: string;
       image_path: string;
       thumbnail_path?: string;
+      image_url?: string;
+      thumbnail_url?: string;
       category: string;
       location?: string;
-      photographer?: string;
       is_featured: boolean;
       created_at: string;
     }>;
@@ -254,10 +254,57 @@ const clearFilters = () => {
   applyFilters();
 };
 
-const deleteGallery = (id: number) => {
-  if (confirm('Apakah Anda yakin ingin menghapus gambar ini?')) {
-    // Implement delete
-    console.log('Delete gallery:', id);
+const deleteGallery = async (id: number) => {
+  const result = await Swal.fire({
+    title: 'Apakah Anda yakin?',
+    text: 'Gambar ini akan dihapus secara permanen!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Ya, hapus!',
+    cancelButtonText: 'Batal',
+    reverseButtons: true
+  });
+
+  if (result.isConfirmed) {
+    try {
+      // Show loading
+      Swal.fire({
+        title: 'Menghapus...',
+        text: 'Sedang menghapus gambar',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Delete gallery
+      router.delete(`/admin/gallery/${id}`, {
+        onSuccess: () => {
+          Swal.fire({
+            title: 'Berhasil!',
+            text: 'Gambar berhasil dihapus.',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        },
+        onError: () => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Gagal menghapus gambar. Silakan coba lagi.',
+            icon: 'error'
+          });
+        }
+      });
+    } catch {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Terjadi kesalahan saat menghapus gambar.',
+        icon: 'error'
+      });
+    }
   }
 };
 

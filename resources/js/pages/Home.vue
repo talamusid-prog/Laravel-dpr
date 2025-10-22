@@ -4,10 +4,11 @@
     <HeroSection />
     <ArticleSection :articles="props.articles" />
     <ServiceSection />
-    <AspirationSection :aspirations="props.aspirations" />
+    <AspirationSection :gallery-items="props.galleryItems" />
     <BlogSection :posts="props.posts" />
     <Footer />
     <BackToTop />
+    <NewsNotification />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import AspirationSection from '@/components/AspirationSection.vue';
 import BlogSection from '@/components/BlogSection.vue';
 import Footer from '@/components/Footer.vue';
 import BackToTop from '@/components/BackToTop.vue';
+import NewsNotification from '@/components/NewsNotification.vue';
 
 // Props from controller
 interface Props {
@@ -36,12 +38,12 @@ interface Props {
     slug: string;
     published_at: string;
   }>;
-  aspirations: Array<{
+  galleryItems?: Array<{
     id: number;
     title: string;
     description: string;
+    image: string;
     category: string;
-    status: string;
     created_at: string;
   }>;
 }

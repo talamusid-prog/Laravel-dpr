@@ -51,22 +51,44 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+        // Debug: Log request data
+        \Log::info('Store request data:', [
+            'title' => $request->title,
+            'content' => $request->content,
+            'status' => $request->status,
+            'has_featured_image_file' => $request->hasFile('featured_image'),
+            'all_input' => $request->all(),
+            'files' => $request->allFiles(),
+        ]);
+
         $request->validate([
             'title' => 'required|string|max:255',
             'excerpt' => 'nullable|string',
             'content' => 'required|string',
-            'featured_image' => 'nullable|image|max:2048',
+            'featured_image' => 'nullable|file|image|max:2048',
             'status' => 'required|in:draft,published',
         ]);
+
+        $featuredImagePath = null;
+        if ($request->hasFile('featured_image')) {
+            $featuredImagePath = $request->file('featured_image')->store('articles', 'public');
+            \Log::info('Featured image stored:', ['path' => $featuredImagePath]);
+        }
 
         $article = Article::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'excerpt' => $request->excerpt,
             'content' => $request->content,
-            'featured_image' => $request->file('featured_image')?->store('articles'),
+            'featured_image' => $featuredImagePath,
             'status' => $request->status,
             'published_at' => $request->status === 'published' ? now() : null,
+        ]);
+
+        \Log::info('Article created:', [
+            'id' => $article->id,
+            'title' => $article->title,
+            'featured_image' => $article->featured_image,
         ]);
 
         return redirect()->route('admin.articles.index')

@@ -25,249 +25,235 @@
           class="text-3xl lg:text-4xl font-bold mb-4"
           style="background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent;"
         >
-          Update Aspirasi Masyarakat
+          Dokumentasi Kegiatan
         </h2>
         <p class="text-lg text-black">
-          Pantau Perkembangan Aspirasi yang Telah Diterima
+          Galeri Foto dan Dokumentasi Kegiatan Dr. Ir. H. AGUS AMBO DJIWA, M.P.
         </p>
       </div>
 
-      <!-- Main Content Container -->
-      <div class="bg-white rounded-2xl border border-gray-200 p-4 lg:p-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          <!-- Left Panel - Statistics & CTA -->
-          <div class="text-center">
-            <!-- Icon Container -->
-            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));">
-              <MessageSquare class="w-10 h-10 text-white" />
-            </div>
-            
-            <!-- Title -->
-            <h3 class="text-3xl font-bold text-gray-700 mb-4">
-              Statistik Aspirasi
-            </h3>
-            
-            <!-- Statistics -->
-            <div class="mb-6">
-              <div class="text-4xl lg:text-5xl font-bold mb-2" style="background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                150+
-              </div>
-              <p class="text-gray-600">Aspirasi Diterima</p>
-            </div>
-            
-            <!-- CTA Button -->
-            <button 
-              class="w-full lg:w-auto bg-gradient-accent hover:opacity-90 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
-              @click="navigateTo('/aspirasi')"
-            >
-              Kirim Aspirasi
-            </button>
-          </div>
-
-          <!-- Right Panel - Aspirasi Updates -->
-          <div class="space-y-3 lg:space-y-4 flex flex-col justify-center">
-            <!-- Loading State -->
-            <div v-if="loading" class="text-center">
-              <p class="text-sm text-gray-500">Memuat aspirasi...</p>
-            </div>
-            
-            <!-- Empty State -->
-            <div v-else-if="aspirations.length === 0" class="text-center">
-              <p class="text-sm text-gray-500">Belum ada aspirasi.</p>
-            </div>
-            
-            <!-- Aspirasi Cards -->
-            <div v-else>
-              <!-- Top Row - 3 Cards -->
-              <div class="grid grid-cols-3 gap-1 lg:gap-2 mb-3 lg:mb-4">
-                <div 
-                  v-for="aspiration in aspirations.slice(0, 3)" 
-                  :key="aspiration.id"
-                  class="bg-gray-50 rounded-lg p-2 border border-primary/20 hover:border-primary/50 hover:shadow-md transition-all duration-300 text-center"
-                  style="border: 1px solid rgba(59, 130, 246, 0.2);"
-                >
-                  <!-- Icon -->
-                  <component 
-                    :is="getIcon(aspiration.category)" 
-                    class="w-8 h-8 text-primary mx-auto mb-1" 
-                  />
-                  
-                  <!-- Title -->
-                  <h4 class="font-semibold text-gray-700 text-xs lg:text-sm mb-1">
-                    {{ aspiration.title }}
-                  </h4>
-                  
-                  <!-- Description -->
-                  <p class="text-gray-600 text-xs mb-2 line-clamp-2">
-                    {{ truncateText(aspiration.description, 80) }}
-                  </p>
-                  
-                  <!-- Footer -->
-                  <div class="flex flex-col gap-1">
-                    <!-- Date -->
-                    <div class="flex items-center justify-center gap-1">
-                      <Clock class="w-3 h-3 text-gray-500" />
-                      <span class="text-xs text-gray-500">{{ formatDate(aspiration.created_at) }}</span>
-                    </div>
-                    
-                    <!-- Status Badge -->
-                    <span 
-                      class="text-xs font-medium px-2 py-1 rounded-full"
-                      :class="getStatusClasses(aspiration.status)"
-                    >
-                      {{ getStatusText(aspiration.status) }}
-                    </span>
-                  </div>
+      <!-- Gallery Masonry Container -->
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 lg:p-8">
+        <!-- Gallery Grid -->
+        <div class="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+          <!-- Gallery Items -->
+          <div 
+            v-for="(item, index) in galleryItems" 
+            :key="item.id"
+            class="break-inside-avoid mb-4 group cursor-pointer"
+            @click="openLightbox(index)"
+          >
+            <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <!-- Image -->
+              <img 
+                :src="item.image" 
+                :alt="item.title"
+                class="w-full h-auto object-cover"
+                :class="item.height"
+              />
+              
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
+                <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center text-white p-4">
+                  <h3 class="font-semibold text-lg">{{ item.title }}</h3>
                 </div>
               </div>
               
-              <!-- Bottom Row - 2 Cards -->
-              <div class="grid grid-cols-2 gap-2 lg:gap-4">
-                <div 
-                  v-for="aspiration in aspirations.slice(3, 5)" 
-                  :key="aspiration.id"
-                  class="bg-gray-50 rounded-xl p-3 lg:p-4 border border-primary/20 hover:border-primary/50 hover:shadow-md transition-all duration-300 text-center"
-                  style="border: 1px solid rgba(59, 130, 246, 0.2);"
+              <!-- Category Badge -->
+              <div class="absolute top-3 left-3">
+                <span 
+                  class="px-2 py-1 text-xs font-medium rounded-full text-white"
+                  :class="getCategoryColor(item.category)"
                 >
-                  <!-- Icon -->
-                  <component 
-                    :is="getIcon(aspiration.category)" 
-                    class="w-8 h-8 text-primary mx-auto mb-1" 
-                  />
-                  
-                  <!-- Title -->
-                  <h4 class="font-semibold text-gray-700 text-sm lg:text-base mb-1">
-                    {{ aspiration.title }}
-                  </h4>
-                  
-                  <!-- Description -->
-                  <p class="text-gray-600 text-xs lg:text-sm mb-2 line-clamp-2">
-                    {{ truncateText(aspiration.description, 80) }}
-                  </p>
-                  
-                  <!-- Footer -->
-                  <div class="flex items-center justify-between">
-                    <!-- Date -->
-                    <div class="flex items-center gap-1">
-                      <Clock class="w-3 h-3 text-gray-500" />
-                      <span class="text-xs text-gray-500">{{ formatDate(aspiration.created_at) }}</span>
-                    </div>
-                    
-                    <!-- Status Badge -->
-                    <span 
-                      class="text-xs font-medium px-2 py-1 rounded-full"
-                      :class="getStatusClasses(aspiration.status)"
-                    >
-                      {{ getStatusText(aspiration.status) }}
+                  {{ item.category }}
                     </span>
                   </div>
                 </div>
               </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="text-center mt-8 space-y-4">
+          <!-- Load More Button -->
+          <a
+            href="/gallery"
+            class="inline-flex items-center bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+          >
+            Lihat Lebih Banyak
+          </a>
+          
+        </div>
+      </div>
+      
+      <!-- Lightbox Modal -->
+      <div 
+        v-if="lightboxOpen" 
+        class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+        @click="closeLightbox"
+      >
+        <div class="relative max-w-4xl max-h-full" @click.stop>
+          <button 
+            @click="closeLightbox"
+            class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+          >
+            <X class="w-8 h-8" />
+          </button>
+          
+          <img 
+            :src="galleryItems[currentIndex].image" 
+            :alt="galleryItems[currentIndex].title"
+            class="max-w-full max-h-full rounded-lg"
+          />
+          
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+            <h3 class="text-xl font-semibold mb-2">{{ galleryItems[currentIndex].title }}</h3>
+            <p class="text-sm mb-2">{{ galleryItems[currentIndex].description }}</p>
+            <div class="flex items-center gap-2">
+              <Calendar class="w-4 h-4" />
+              <span class="text-xs">{{ formatDate(galleryItems[currentIndex].created_at) }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import { MessageSquare, Users, Calendar, Clock } from 'lucide-vue-next';
-import { router } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import { Calendar, X } from 'lucide-vue-next';
 
 // Types
-interface Aspiration {
+interface GalleryItem {
   id: number;
   title: string;
   description: string;
+  image: string;
   category: string;
-  status: string;
   created_at: string;
+  height?: string;
 }
+
+// Props from controller
+interface Props {
+  galleryItems?: GalleryItem[];
+}
+
+const props = defineProps<Props>();
 
 // Reactive data
 const loading = ref(true);
-const currentSlide = ref(0);
-const autoSlideInterval = ref<number | null>(null);
+const lightboxOpen = ref(false);
+const currentIndex = ref(0);
 
-// Sample data untuk demo
-const aspirations = ref<Aspiration[]>([
+// Gallery data from props or fallback
+const galleryItems = ref<GalleryItem[]>(props.galleryItems || []);
+
+// Fallback data if no props provided
+const fallbackData: GalleryItem[] = [
   {
     id: 1,
-    title: "Perbaikan Jalan",
-    description: "Permintaan perbaikan jalan di Desa Pasangkayu yang sudah rusak parah dan mengganggu aktivitas warga",
-    category: "infrastruktur",
-    status: "diproses",
-    created_at: "2024-01-15"
+    title: "Rapat DPR-RI",
+    description: "Sidang paripurna DPR-RI membahas RUU penting",
+    image: "/gallery/rapat-dpr.jpg",
+    category: "Politik",
+    created_at: "2024-01-15",
+    height: "h-64"
   },
   {
     id: 2,
-    title: "Bantuan UMKM",
-    description: "Permohonan bantuan modal untuk pengembangan usaha kecil menengah di wilayah NTB",
-    category: "umkm",
-    status: "baru",
-    created_at: "2024-01-14"
+    title: "Kunjungan Kerja",
+    description: "Kunjungan kerja ke Sulawesi Barat",
+    image: "/gallery/kunjungan-kerja.jpg",
+    category: "Kegiatan",
+    created_at: "2024-01-14",
+    height: "h-80"
   },
   {
     id: 3,
-    title: "Program Kesehatan",
-    description: "Usulan program kesehatan gratis untuk masyarakat kurang mampu di daerah terpencil",
-    category: "kesehatan",
-    status: "selesai",
-    created_at: "2024-01-13"
+    title: "Sosialisasi Program",
+    description: "Sosialisasi program pembangunan di masyarakat",
+    image: "/gallery/sosialisasi.jpg",
+    category: "Sosialisasi",
+    created_at: "2024-01-13",
+    height: "h-72"
   },
   {
     id: 4,
-    title: "Pendidikan Gratis",
-    description: "Aspirasi untuk program pendidikan gratis dan beasiswa untuk anak-anak di NTB",
-    category: "pendidikan",
-    status: "diproses",
-    created_at: "2024-01-12"
+    title: "Rapat Komisi",
+    description: "Rapat komisi membahas anggaran daerah",
+    image: "/gallery/rapat-komisi.jpg",
+    category: "Politik",
+    created_at: "2024-01-12",
+    height: "h-60"
   },
   {
     id: 5,
-    title: "Lingkungan Hijau",
-    description: "Inisiatif penanaman pohon dan program lingkungan hijau di seluruh NTB",
-    category: "lingkungan",
-    status: "baru",
-    created_at: "2024-01-11"
+    title: "Penandatanganan MoU",
+    description: "Penandatanganan MoU dengan perguruan tinggi",
+    image: "/gallery/mou.jpg",
+    category: "Kerjasama",
+    created_at: "2024-01-11",
+    height: "h-96"
+  },
+  {
+    id: 6,
+    title: "Hari Kemerdekaan",
+    description: "Upacara peringatan hari kemerdekaan RI",
+    image: "/gallery/17-agustus.jpg",
+    category: "Acara",
+    created_at: "2024-01-10",
+    height: "h-68"
+  },
+  {
+    id: 7,
+    title: "Rapat dengan Masyarakat",
+    description: "Rapat koordinasi dengan tokoh masyarakat",
+    image: "/gallery/rapat-masyarakat.jpg",
+    category: "Masyarakat",
+    created_at: "2024-01-09",
+    height: "h-76"
+  },
+  {
+    id: 8,
+    title: "Kunjungan ke Sekolah",
+    description: "Kunjungan ke sekolah untuk program pendidikan",
+    image: "/gallery/kunjungan-sekolah.jpg",
+    category: "Pendidikan",
+    created_at: "2024-01-08",
+    height: "h-84"
   }
-]);
+];
+
+// Use fallback data if no props provided
+if (!props.galleryItems || props.galleryItems.length === 0) {
+  galleryItems.value = fallbackData;
+}
 
 // Methods
-const navigateTo = (url: string) => {
-  router.visit(url);
+const getCategoryColor = (category: string) => {
+  const colorMap: Record<string, string> = {
+    'Politik': 'bg-blue-500',
+    'Kegiatan': 'bg-green-500',
+    'Sosialisasi': 'bg-purple-500',
+    'Kerjasama': 'bg-orange-500',
+    'Acara': 'bg-red-500',
+    'Masyarakat': 'bg-indigo-500',
+    'Pendidikan': 'bg-pink-500'
+  };
+  return colorMap[category] || 'bg-gray-500';
 };
 
-const getIcon = (category: string) => {
-  const iconMap: Record<string, any> = {
-    'kesehatan': Users,
-    'infrastruktur': Calendar,
-    'umkm': MessageSquare,
-    'lingkungan': Users,
-    'pendidikan': MessageSquare
-  };
-  return iconMap[category] || MessageSquare;
+const openLightbox = (index: number) => {
+  currentIndex.value = index;
+  lightboxOpen.value = true;
 };
 
-const getStatusText = (status: string) => {
-  const statusMap: Record<string, string> = {
-    'selesai': 'Selesai',
-    'diproses': 'Dalam Proses',
-    'baru': 'Baru'
-  };
-  return statusMap[status] || 'Dalam Proses';
+const closeLightbox = () => {
+  lightboxOpen.value = false;
 };
 
-const getStatusClasses = (status: string) => {
-  const statusClasses: Record<string, string> = {
-    'selesai': 'bg-green-100 text-green-800',
-    'diproses': 'bg-red-100 text-red-800',
-    'baru': 'bg-yellow-100 text-yellow-800'
-  };
-  return statusClasses[status] || 'bg-red-100 text-red-800';
-};
 
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -278,37 +264,15 @@ const formatDate = (dateString: string): string => {
   });
 };
 
-const truncateText = (text: string, maxLength: number): string => {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '…';
-};
 
-// Auto-slide methods
-const startAutoSlide = () => {
-  autoSlideInterval.value = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % aspirations.value.length;
-  }, 3000); // Change slide every 3 seconds
-};
 
-const stopAutoSlide = () => {
-  if (autoSlideInterval.value) {
-    clearInterval(autoSlideInterval.value);
-    autoSlideInterval.value = null;
-  }
-};
 
 // Lifecycle
 onMounted(() => {
   // Simulate loading
   setTimeout(() => {
     loading.value = false;
-    // Start auto-slide after loading
-    startAutoSlide();
   }, 1000);
-});
-
-onUnmounted(() => {
-  stopAutoSlide();
 });
 </script>
 

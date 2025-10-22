@@ -7,10 +7,10 @@
           class="text-3xl lg:text-4xl font-bold mb-4 relative z-50"
           style="background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent;"
         >
-          Layanan Aspirasi
+          Layanan Informasi
         </h2>
         <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Akses berbagai layanan dan informasi terkini untuk mendukung aspirasi masyarakat
+          Akses berbagai layanan dan informasi terkini
         </p>
       </div>
 
@@ -29,7 +29,7 @@
           <div 
             class="group relative rounded-xl shadow-sm hover:shadow-lg border p-3 sm:p-4 h-full overflow-hidden transition-all duration-300 cursor-pointer"
             style="background: var(--color-primary); border-color: rgba(255, 255, 255, 0.3);"
-            @click="navigateTo('/aspirasi')"
+            @click="navigateTo('/gallery')"
           >
             <!-- Background Pattern - Lines -->
             <div class="absolute inset-0 opacity-25">
@@ -55,24 +55,24 @@
           <div class="relative z-10 flex flex-col sm:flex-row gap-3 sm:gap-4 h-full">
             <!-- Mobile: Icon at top, Desktop: Icon at left -->
             <div class="flex items-start justify-start sm:contents">
-              <!-- Mobile Icon (top) -->
-              <div class="sm:hidden">
-                <MessageSquare class="w-8 h-8 sm:w-9 sm:h-9 text-white" />
-              </div>
-              
-              <!-- Desktop Icon (left) -->
-              <div class="hidden sm:flex flex-shrink-0">
-                <MessageSquare class="w-6 h-6 text-white" />
-              </div>
+            <!-- Mobile Icon (top) -->
+            <div class="sm:hidden">
+              <Image class="w-8 h-8 sm:w-9 sm:h-9 text-white" />
+            </div>
+            
+            <!-- Desktop Icon (left) -->
+            <div class="hidden sm:flex flex-shrink-0">
+              <Image class="w-6 h-6 text-white" />
+            </div>
             </div>
             
             <!-- Text Content -->
             <div class="flex-1 flex flex-col h-full">
               <h3 class="text-xl sm:text-2xl font-semibold text-white mb-2 transition-colors duration-300">
-                Layanan Aspirasi
+                Dokumentasi Kegiatan
               </h3>
               <p class="text-base sm:text-lg text-white/90 mb-3 sm:mb-4 leading-relaxed flex-1">
-                Menyediakan informasi tentang layanan serap aspirasi
+                Lihat dokumentasi kegiatan dan program terbaru
               </p>
               
               <!-- Arrow (bottom) -->
@@ -200,7 +200,7 @@
                 Profil Kami
               </h3>
               <p class="text-base sm:text-lg text-white/90 mb-3 sm:mb-4 leading-relaxed flex-1">
-                Temukan informasi lengkap tentang profil dan visi misi
+                Temukan informasi lengkap tentang profil 
               </p>
               
               <!-- Arrow (bottom) -->
@@ -235,45 +235,54 @@
         </div>
       </div>
 
-      <!-- Call to Action Section -->
+      <!-- Social Media Section -->
       <div class="mt-12 text-center bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8 border border-primary/10">
         <h3 class="text-xl font-semibold text-gray-900 mb-2">
-          Ada Pertanyaan atau Saran?
+          Ikuti Kami di Media Sosial
         </h3>
         <p class="text-muted-foreground mb-6">
-          Tim kami siap membantu Anda dengan informasi dan layanan terbaik
+          Dapatkan update berita dan informasi terbaru dari Dr. Ir. H. AGUS AMBO DJIWA, M.P.
         </p>
         
-        <!-- CTA Buttons -->
-        <div class="flex flex-row gap-2 sm:gap-4 justify-center">
-          <!-- Button 1 (Primary) -->
-          <button 
-            class="group inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white text-sm sm:text-base font-medium px-4 py-2 sm:px-6 sm:py-3 rounded-[30px] transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25"
-            @click="navigateTo('/aspirasi')"
+        <!-- Social Media Icons -->
+        <div class="flex justify-center gap-4">
+          <!-- Facebook -->
+          <a 
+            href="https://facebook.com" 
+            target="_blank"
+            class="group w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-110"
           >
-            <MessageSquare class="w-4 h-4 sm:w-5 sm:h-5" />
-            <span class="hidden sm:inline">Kirim Aspirasi</span>
-            <span class="sm:hidden">Aspirasi</span>
-          </button>
-          
-          <!-- Button 2 (Secondary) -->
-          <button 
-            class="group inline-flex items-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white text-sm sm:text-base font-medium px-4 py-2 sm:px-6 sm:py-3 rounded-[30px] transition-all duration-300"
-            @click="navigateTo('/kontak')"
+            <Facebook class="w-6 h-6" />
+          </a>
+
+          <!-- Instagram -->
+          <a 
+            href="https://instagram.com" 
+            target="_blank"
+            class="group w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-110"
           >
-            <User class="w-4 h-4 sm:w-5 sm:h-5" />
-            <span class="hidden sm:inline">Hubungi Kami</span>
-            <span class="sm:hidden">Kontak</span>
-          </button>
+            <Instagram class="w-6 h-6" />
+          </a>
+
+
+          <!-- YouTube -->
+          <a 
+            href="https://youtube.com" 
+            target="_blank"
+            class="group w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-110"
+          >
+            <Youtube class="w-6 h-6" />
+          </a>
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { MessageSquare, Calendar, User } from 'lucide-vue-next';
+import { Calendar, User, Facebook, Instagram, Youtube, Image } from 'lucide-vue-next';
 import { router } from '@inertiajs/vue3';
 
 // Reactive data for swipe functionality
@@ -285,6 +294,8 @@ const touchEndX = ref(0);
 const navigateTo = (url: string) => {
   router.visit(url);
 };
+
+
 
 // Touch events for swipe
 const handleTouchStart = (e: TouchEvent) => {

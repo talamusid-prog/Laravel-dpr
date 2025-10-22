@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Aspiration;
+use App\Models\Gallery;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -55,13 +56,33 @@ class HomeController extends Controller
                 ];
             });
 
+        // Get gallery items for documentation section
+        $galleryItems = Gallery::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(8)
+            ->get()
+            ->map(function ($gallery) {
+                return [
+                    'id' => $gallery->id,
+                    'title' => $gallery->title,
+                    'description' => $gallery->description,
+                    'image' => $gallery->image ? asset('storage/' . $gallery->image) : null,
+                    'category' => $gallery->category,
+                    'created_at' => $gallery->created_at->format('Y-m-d'),
+                ];
+            });
+
         // Debug: Log aspirations data
         \Log::info('Aspirations data:', $aspirations->toArray());
+        
+        // Debug: Log gallery data
+        \Log::info('Gallery data:', $galleryItems->toArray());
 
         return Inertia::render('Home', [
             'articles' => $articles,
             'posts' => $posts,
             'aspirations' => $aspirations,
+            'galleryItems' => $galleryItems,
         ]);
     }
 }

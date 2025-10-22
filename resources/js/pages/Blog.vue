@@ -29,36 +29,6 @@
     <!-- Blog Content -->
     <section class="bg-white py-16">
       <div class="max-w-6xl mx-auto px-4">
-        <!-- Search and Filter -->
-        <div class="mb-12">
-          <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <!-- Search -->
-            <div class="relative flex-1 max-w-md">
-              <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Cari artikel..."
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-            </div>
-            
-            <!-- Category Filter -->
-            <div class="flex gap-2 flex-wrap">
-              <button
-                v-for="category in categories"
-                :key="category"
-                @click="selectedCategory = selectedCategory === category ? null : category"
-                class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
-                :class="selectedCategory === category 
-                  ? 'bg-primary text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-              >
-                {{ category }}
-              </button>
-            </div>
-          </div>
-        </div>
 
         <!-- Loading State -->
         <div v-if="loading" class="text-center py-12">
@@ -76,7 +46,7 @@
         <!-- Articles Grid -->
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <article
-            v-for="article in paginatedArticles"
+            v-for="article in filteredArticles"
             :key="article.id"
             class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200 hover:border-primary/20"
             @click="navigateToArticle(article.slug)"
@@ -151,44 +121,6 @@
           </article>
         </div>
 
-        <!-- Pagination -->
-        <div v-if="totalPages > 1" class="mt-12 flex justify-center">
-          <nav class="flex items-center gap-2">
-            <button
-              @click="currentPage = Math.max(1, currentPage - 1)"
-              :disabled="currentPage === 1"
-              class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="currentPage === 1 
-                ? 'text-gray-400 cursor-not-allowed' 
-                : 'text-gray-700 hover:bg-gray-100'"
-            >
-              <ChevronLeft class="w-4 h-4" />
-            </button>
-
-            <button
-              v-for="page in visiblePages"
-              :key="page"
-              @click="currentPage = page"
-              class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="currentPage === page 
-                ? 'bg-primary text-white' 
-                : 'text-gray-700 hover:bg-gray-100'"
-            >
-              {{ page }}
-            </button>
-
-            <button
-              @click="currentPage = Math.min(totalPages, currentPage + 1)"
-              :disabled="currentPage === totalPages"
-              class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="currentPage === totalPages 
-                ? 'text-gray-400 cursor-not-allowed' 
-                : 'text-gray-700 hover:bg-gray-100'"
-            >
-              <ChevronRight class="w-4 h-4" />
-            </button>
-          </nav>
-        </div>
       </div>
     </section>
 
@@ -202,11 +134,8 @@ import { ref, computed, onMounted } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { 
   BookOpen, 
-  Search, 
   User, 
-  Eye, 
-  ChevronLeft, 
-  ChevronRight
+  Eye
 } from 'lucide-vue-next';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
@@ -228,10 +157,6 @@ interface Article {
 
 // State
 const loading = ref(true);
-const searchQuery = ref('');
-const selectedCategory = ref<string | null>(null);
-const currentPage = ref(1);
-const itemsPerPage = 9;
 
 // Props
 interface Props {
@@ -244,50 +169,11 @@ const props = defineProps<Props>();
 // Articles data from props
 const articles = ref<Article[]>(props.articles || []);
 
-// Categories
-const categories = ['Semua', ...(props.categories || ['Kegiatan', 'Pendidikan', 'Ekonomi', 'Legislasi', 'Pemerintahan'])];
-
 // Computed
 const filteredArticles = computed(() => {
-  let filtered = articles.value.filter(article => article.status === 'published');
-  
-  // Filter by search query
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase();
-    filtered = filtered.filter(article => 
-      article.title.toLowerCase().includes(query) ||
-      article.excerpt.toLowerCase().includes(query) ||
-      article.tags.some(tag => tag.toLowerCase().includes(query))
-    );
-  }
-  
-  // Filter by category
-  if (selectedCategory.value && selectedCategory.value !== 'Semua') {
-    filtered = filtered.filter(article => article.category === selectedCategory.value);
-  }
-  
-  return filtered;
+  return articles.value.filter(article => article.status === 'published');
 });
 
-const totalPages = computed(() => Math.ceil(filteredArticles.value.length / itemsPerPage));
-
-const visiblePages = computed(() => {
-  const pages = [];
-  const start = Math.max(1, currentPage.value - 2);
-  const end = Math.min(totalPages.value, currentPage.value + 2);
-  
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
-  }
-  
-  return pages;
-});
-
-const paginatedArticles = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return filteredArticles.value.slice(start, end);
-});
 
 // Methods
 const formatDate = (dateString: string): string => {
@@ -300,7 +186,7 @@ const formatDate = (dateString: string): string => {
 };
 
 const navigateToArticle = (slug: string) => {
-  router.visit(`/blog/${slug}`);
+  router.visit(`/berita-utama/${slug}`);
 };
 
 // Lifecycle

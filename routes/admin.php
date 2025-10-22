@@ -48,6 +48,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('gallery', GalleryController::class);
     Route::post('gallery/bulk-upload', [GalleryController::class, 'bulkUpload'])->name('gallery.bulk-upload');
     
+    // Override create route to use custom view
+    Route::get('gallery/create', function () {
+        return Inertia::render('Admin/Gallery/Create');
+    })->name('gallery.create');
+    
     // Aspirations
     Route::resource('aspirations', AspirationController::class);
     Route::post('aspirations/{aspiration}/respond', [AspirationController::class, 'respond'])->name('aspirations.respond');

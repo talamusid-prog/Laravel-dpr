@@ -17,8 +17,10 @@ Route::get('kalender', function () {
     return Inertia::render('Kalender');
 })->name('kalender');
 
-Route::get('blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
-Route::get('blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.detail');
+Route::get('berita-utama', [App\Http\Controllers\BlogController::class, 'index'])->name('berita-utama');
+Route::get('berita-utama/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('berita-utama.detail');
+
+Route::get('gallery', [App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 
 Route::get('aspirasi', function () {
     return Inertia::render('Aspirasi');

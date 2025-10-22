@@ -65,16 +65,16 @@
             Kalender Kegiatan
           </a>
           <a 
-            href="/blog" 
+            href="/berita-utama" 
             class="transition-smooth font-medium bg-transparent border-none cursor-pointer text-sm lg:text-base"
             :class="[
               isScrolled 
                 ? 'text-foreground hover:text-primary' 
                 : 'text-white hover:text-white/80'
             ]"
-            @click="handleNavigation('/blog')"
+            @click="handleNavigation('/berita-utama')"
           >
-            Berita
+            Berita Utama
           </a>
           <a 
             href="/aspirasi" 
@@ -90,20 +90,6 @@
           </a>
         </nav>
 
-        <!-- CTA Button (Desktop) -->
-        <div class="hidden md:flex items-center">
-          <button 
-            @click="handleRegister"
-            class="transition-smooth font-medium px-6 py-3 rounded-lg"
-            :class="[
-              isScrolled 
-                ? 'bg-gradient-to-r from-primary to-primary/90 text-white hover:shadow-glow' 
-                : 'bg-white/20 text-white border border-white/30 hover:bg-white/30 hover:shadow-lg'
-            ]"
-          >
-            Daftar Relawan
-          </button>
-        </div>
 
         <!-- Mobile Menu Toggle -->
         <button 
@@ -159,11 +145,11 @@
             Kalender Kegiatan
           </a>
           <a 
-            href="/blog" 
+            href="/berita-utama" 
             class="text-white hover:text-white/80 transition-smooth font-medium bg-transparent border-none cursor-pointer text-left"
-            @click="handleNavigation('/blog')"
+            @click="handleNavigation('/berita-utama')"
           >
-            Berita
+            Berita Utama
           </a>
           <a 
             href="/aspirasi" 
@@ -172,12 +158,6 @@
           >
             Aspirasi
           </a>
-          <button 
-            @click="handleRegister"
-            class="bg-gradient-to-r from-primary to-primary/90 text-white mt-2 px-4 py-2 rounded-lg transition-smooth font-medium text-left"
-          >
-            Daftar
-          </button>
         </div>
       </div>
     </div>
@@ -224,10 +204,6 @@ const handleNavigation = (path: string) => {
   }
 };
 
-const handleRegister = () => {
-  isMenuOpen.value = false;
-  window.location.href = '/pendaftaran-anggota';
-};
 
 // Lifecycle
 onMounted(() => {

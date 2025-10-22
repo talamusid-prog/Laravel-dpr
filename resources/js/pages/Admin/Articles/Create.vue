@@ -236,12 +236,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick, markRaw } from 'vue';
 import { ArrowLeft, Eye, EyeOff, Save, X, Upload, Plus } from 'lucide-vue-next';
 import Swal from 'sweetalert2';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router } from '@inertiajs/vue3';
-// @ts-expect-error - CKEditor types not available
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // Types
@@ -366,6 +365,11 @@ const formatContentWithHeadings = (content: string): string => {
 };
 
 const saveArticle = async () => {
+  // Get latest content from editor before validation
+  if (editor.value) {
+    formData.value.content = editor.value.getData();
+  }
+  
   // Validation
   if (!formData.value.title.trim()) {
     await Swal.fire({
@@ -377,7 +381,9 @@ const saveArticle = async () => {
     return;
   }
   
-  if (!formData.value.content.trim()) {
+  // Check if content is empty or only contains whitespace/HTML tags
+  const contentText = formData.value.content.replace(/<[^>]*>/g, '').trim();
+  if (!contentText) {
     await Swal.fire({
       title: 'Validasi Gagal',
       text: 'Konten artikel harus diisi',
@@ -504,7 +510,7 @@ const initEditor = async () => {
     // Wait a bit more for DOM to be ready
     await new Promise(resolve => setTimeout(resolve, 100));
 
-    editor.value = await ClassicEditor.create(editorElement, {
+    editor.value = markRaw(await ClassicEditor.create(editorElement, {
       toolbar: {
         items: [
           'heading', '|',
@@ -532,7 +538,7 @@ const initEditor = async () => {
           { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
         ]
       }
-    });
+    }));
 
     // Set initial data after a short delay
     setTimeout(() => {

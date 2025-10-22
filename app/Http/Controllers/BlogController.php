@@ -27,12 +27,10 @@ class BlogController extends Controller
             $query->where('category', $request->category);
         }
 
-        $articles = $query->latest('published_at')
-            ->paginate(9)
-            ->withQueryString();
+        $articles = $query->latest('published_at')->get();
 
         // Transform articles to include proper image URLs
-        $articles->getCollection()->transform(function ($article) {
+        $articles->transform(function ($article) {
             $article->featured_image_url = $article->featured_image ? asset('storage/' . $article->featured_image) : null;
             return $article;
         });
@@ -44,7 +42,7 @@ class BlogController extends Controller
             ->values();
 
         return Inertia::render('Blog', [
-            'articles' => $articles->items(),
+            'articles' => $articles,
             'categories' => $categories,
             'filters' => $request->only(['search', 'category']),
         ]);

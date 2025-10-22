@@ -10,10 +10,10 @@
         <!-- Header Section -->
         <div class="text-center mb-8">
           <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Sampaikan Aspirasi Anda
+            Berlangganan Update Berita
           </h1>
           <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Suara Anda penting untuk kemajuan daerah. Mari bersama-sama membangun masa depan yang lebih baik.
+            Dapatkan notifikasi langsung setiap ada berita terbaru dari Dr. Ir. H. AGUS AMBO DJIWA, M.P.
           </p>
         </div>
 
@@ -133,7 +133,7 @@
               >
                 <Send v-if="!isSubmitting" class="w-5 h-5" />
                 <div v-else class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                {{ isSubmitting ? 'Mengirim...' : 'Kirim Aspirasi' }}
+                {{ isSubmitting ? 'Memproses...' : 'Berlangganan' }}
               </button>
             </div>
           </form>

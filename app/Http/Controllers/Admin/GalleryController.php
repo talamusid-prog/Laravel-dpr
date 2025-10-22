@@ -37,6 +37,13 @@ class GalleryController extends Controller
             ->paginate(12)
             ->withQueryString();
 
+        // Transform galleries to include proper image URLs
+        $galleries->getCollection()->transform(function ($gallery) {
+            $gallery->image_url = $gallery->image ? asset('storage/' . $gallery->image) : null;
+            $gallery->thumbnail_url = $gallery->thumbnail_path ? asset('storage/' . $gallery->thumbnail_path) : $gallery->image_url;
+            return $gallery;
+        });
+
         $categories = Gallery::distinct()->pluck('category');
 
         return Inertia::render('Admin/Gallery/Index', [
@@ -74,7 +81,6 @@ class GalleryController extends Controller
             'image' => 'required|image|max:2048',
             'category' => 'required|string',
             'location' => 'nullable|string',
-            'photographer' => 'nullable|string',
             'is_featured' => 'boolean',
         ]);
 
@@ -86,12 +92,13 @@ class GalleryController extends Controller
         Gallery::create([
             'title' => $request->title,
             'description' => $request->description,
+            'image' => $imagePath,
             'image_path' => $imagePath,
             'thumbnail_path' => $thumbnailPath,
             'category' => $request->category,
             'location' => $request->location,
-            'photographer' => $request->photographer,
             'is_featured' => $request->boolean('is_featured'),
+            'is_active' => $request->boolean('is_active', true),
         ]);
 
         return redirect()->route('admin.gallery.index')
@@ -134,7 +141,6 @@ class GalleryController extends Controller
             'image' => 'nullable|image|max:2048',
             'category' => 'required|string',
             'location' => 'nullable|string',
-            'photographer' => 'nullable|string',
             'is_featured' => 'boolean',
         ]);
 
@@ -143,7 +149,6 @@ class GalleryController extends Controller
             'description' => $request->description,
             'category' => $request->category,
             'location' => $request->location,
-            'photographer' => $request->photographer,
             'is_featured' => $request->boolean('is_featured'),
         ];
 
@@ -195,12 +200,13 @@ class GalleryController extends Controller
             Gallery::create([
                 'title' => $image->getClientOriginalName(),
                 'description' => null,
+                'image' => $imagePath,
                 'image_path' => $imagePath,
                 'thumbnail_path' => $thumbnailPath,
                 'category' => $request->category,
                 'location' => null,
-                'photographer' => null,
                 'is_featured' => false,
+                'is_active' => true,
             ]);
 
             $uploadedCount++;

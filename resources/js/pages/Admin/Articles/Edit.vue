@@ -241,7 +241,6 @@ import { ArrowLeft, Eye, EyeOff, Save, X, Upload, Plus } from 'lucide-vue-next';
 import Swal from 'sweetalert2';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router } from '@inertiajs/vue3';
-// @ts-expect-error - CKEditor types not available
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // Types
@@ -361,14 +360,31 @@ const formatContentWithHeadings = (content: string): string => {
 };
 
 const saveArticle = async () => {
+  // Get latest content from editor before validation
+  if (editor.value) {
+    formData.value.content = editor.value.getData();
+  }
+  
   // Validation
   if (!formData.value.title.trim()) {
-    alert('Judul artikel harus diisi');
+    await Swal.fire({
+      title: 'Validasi Gagal',
+      text: 'Judul artikel harus diisi',
+      icon: 'error',
+      confirmButtonColor: '#ef4444'
+    });
     return;
   }
   
-  if (!formData.value.content.trim()) {
-    alert('Konten artikel harus diisi');
+  // Check if content is empty or only contains whitespace/HTML tags
+  const contentText = formData.value.content.replace(/<[^>]*>/g, '').trim();
+  if (!contentText) {
+    await Swal.fire({
+      title: 'Validasi Gagal',
+      text: 'Konten artikel harus diisi',
+      icon: 'error',
+      confirmButtonColor: '#ef4444'
+    });
     return;
   }
 
@@ -502,7 +518,7 @@ const initEditor = async () => {
     // Clear any existing content
     editorElement.innerHTML = '';
     
-    const editorInstance = await ClassicEditor.create(editorElement, {
+    const editorInstance = markRaw(await ClassicEditor.create(editorElement, {
       toolbar: {
         items: [
           'heading',
@@ -544,7 +560,7 @@ const initEditor = async () => {
       },
       language: 'id',
       placeholder: 'Tulis konten artikel di sini...'
-    });
+    }));
 
     // Mark the editor instance as raw to avoid Vue proxy conflicts
     editor.value = markRaw(editorInstance);

@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-gray-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Company Info -->
         <div class="lg:col-span-1">
           <div class="flex items-center space-x-3 mb-4">
@@ -56,8 +56,8 @@
               </a>
             </li>
             <li>
-              <a href="/artikel" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Artikel
+              <a href="/berita-utama" class="text-gray-400 hover:text-white transition-colors text-sm">
+                Berita Utama
               </a>
             </li>
             <li>
@@ -65,54 +65,13 @@
                 Galeri
               </a>
             </li>
-            <li>
-              <a href="/aspirasi" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Aspirasi
-              </a>
-            </li>
-            <li>
-              <a href="/kontak" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Kontak
-              </a>
-            </li>
           </ul>
         </div>
 
-        <!-- Program & Layanan -->
-        <div>
-          <h4 class="text-lg font-semibold mb-4">Program & Layanan</h4>
-          <ul class="space-y-2">
-            <li>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Bantuan Sosial
-              </a>
-            </li>
-            <li>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Pembangunan Infrastruktur
-              </a>
-            </li>
-            <li>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Pemberdayaan UMKM
-              </a>
-            </li>
-            <li>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Pendidikan & Kesehatan
-              </a>
-            </li>
-            <li>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">
-                Pengembangan Pariwisata
-              </a>
-            </li>
-          </ul>
-        </div>
 
         <!-- Contact Info -->
         <div>
-          <h4 class="text-lg font-semibold mb-4">Kontak</h4>
+          <h4 class="text-lg font-semibold mb-4">Lokasi</h4>
           <div class="space-y-3">
             <div class="flex items-start space-x-3">
               <MapPin class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -122,24 +81,6 @@
                   Jl. Gatot Subroto, Jakarta
                 </p>
               </div>
-            </div>
-            <div class="flex items-center space-x-3">
-              <Phone class="w-5 h-5 text-primary flex-shrink-0" />
-              <a href="tel:+6281234567890" class="text-sm text-gray-400 hover:text-white transition-colors">
-                +62 812-3456-7890
-              </a>
-            </div>
-            <div class="flex items-center space-x-3">
-              <Mail class="w-5 h-5 text-primary flex-shrink-0" />
-              <a href="mailto:agus.ambo@dpr-ri.com" class="text-sm text-gray-400 hover:text-white transition-colors">
-                agus.ambo@dpr-ri.com
-              </a>
-            </div>
-            <div class="flex items-center space-x-3">
-              <Clock class="w-5 h-5 text-primary flex-shrink-0" />
-              <p class="text-sm text-gray-400">
-                Senin - Jumat: 08:00 - 17:00
-              </p>
             </div>
           </div>
         </div>
@@ -174,9 +115,6 @@ import {
   Instagram, 
   Twitter, 
   Youtube, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock 
+  MapPin
 } from 'lucide-vue-next';
 </script>

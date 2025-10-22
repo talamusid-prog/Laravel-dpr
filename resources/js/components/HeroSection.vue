@@ -33,15 +33,15 @@
           
           <!-- CTA Button -->
           <div class="pt-4">
-            <a 
-              href="/aspirasi"
+            <button 
+              @click="openSubscriptionModal"
               class="group relative inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 rounded-[30px] px-6 py-3 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-red-500/25 overflow-hidden"
             >
-              <MessageSquare class="w-5 h-5 relative z-10" />
-              <span class="relative z-10">Kirim Aspirasi</span>
+              <Bell class="w-5 h-5 relative z-10" />
+              <span class="relative z-10">Ikuti</span>
               <!-- Glow effect -->
               <div class="absolute inset-0 rounded-[30px] bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-300 -z-10"></div>
-            </a>
+            </button>
           </div>
         </div>
         
@@ -58,8 +58,29 @@
       </div>
     </div>
   </section>
+
+  <!-- Subscription Modal -->
+  <SubscriptionModal 
+    :is-open="isSubscriptionModalOpen" 
+    @close="closeSubscriptionModal"
+  />
 </template>
 
 <script setup lang="ts">
-import { MessageSquare } from 'lucide-vue-next';
+import { ref } from 'vue';
+import { Bell } from 'lucide-vue-next';
+import SubscriptionModal from './SubscriptionModal.vue';
+
+// State
+const isSubscriptionModalOpen = ref(false);
+
+// Methods
+const openSubscriptionModal = () => {
+  isSubscriptionModalOpen.value = true;
+};
+
+const closeSubscriptionModal = () => {
+  isSubscriptionModalOpen.value = false;
+};
+
 </script>

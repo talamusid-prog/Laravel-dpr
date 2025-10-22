@@ -33,12 +33,6 @@
           >
             <component :is="item.icon" class="w-5 h-5 mr-3" />
             {{ item.name }}
-            <span 
-              v-if="item.badge" 
-              class="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full"
-            >
-              {{ item.badge }}
-            </span>
           </a>
         </nav>
 
@@ -109,19 +103,15 @@ import {
   LayoutDashboard, 
   FileText, 
   Image, 
-  MessageSquare, 
   Calendar, 
   BarChart3, 
   Settings, 
   Palette,
   User, 
-  Users,
   Menu, 
   Bell,
   LogOut
 } from 'lucide-vue-next';
-
-import { usePage } from '@inertiajs/vue3';
 
 // Props
 interface Props {
@@ -129,7 +119,6 @@ interface Props {
 }
 
 defineProps<Props>();
-const page = usePage();
 
 // State
 const sidebarOpen = ref(false);
@@ -139,14 +128,7 @@ const navigation = computed(() => [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Artikel', href: '/admin/articles', icon: FileText },
   { name: 'Galeri', href: '/admin/gallery', icon: Image },
-  { 
-    name: 'Aspirasi', 
-    href: '/admin/aspirations', 
-    icon: MessageSquare, 
-    badge: (page.props.aspirationStats as any)?.new ? (page.props.aspirationStats as any).new.toString() : '0'
-  },
   { name: 'Kalender', href: '/admin/events', icon: Calendar },
-  { name: 'Pendaftaran Anggota', href: '/admin/member-registrations', icon: Users },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
   { name: 'Pengaturan', href: '/admin/settings', icon: Settings },
   { name: 'Pengaturan Warna', href: '/admin/settings/colors', icon: Palette },
