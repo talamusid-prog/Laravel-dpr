@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Middleware\DatabaseFallback;
 use App\Http\Middleware\ForceHttps;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\ShareAspirationStats;
 use App\Http\Middleware\TrustProxies;
+use App\Http\Middleware\ZeaburMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -22,7 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->web(prepend: [
             TrustProxies::class,
+            DatabaseFallback::class,
             ForceHttps::class,
+            ZeaburMiddleware::class,
         ]);
         
         $middleware->web(append: [

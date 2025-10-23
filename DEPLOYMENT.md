@@ -21,18 +21,26 @@
 ### 1. Build Assets
 ```bash
 # Windows PowerShell
-.\scripts\rebuild-assets.ps1
+.\scripts\deploy-zeabur.ps1
 
 # Atau manual
 npm run build
 ```
 
-### 2. Upload ke Server
+### 2. Setup Database untuk Zeabur
+```bash
+# Jalankan script setup database
+php scripts/zeabur-db-setup.php
+```
+
+### 3. Upload ke Server
 Pastikan mengupload:
 - Folder `public/build/` (termasuk semua file asset)
 - File `config/cors.php`
 - File `bootstrap/app.php` (yang sudah dimodifikasi)
 - File `vite.config.ts` (yang sudah dimodifikasi)
+- File `zeabur.env` (copy ke `.env` di Zeabur)
+- File `public/.htaccess` (untuk CORS dan security)
 
 ### 3. Verifikasi
 Setelah deploy, cek:
