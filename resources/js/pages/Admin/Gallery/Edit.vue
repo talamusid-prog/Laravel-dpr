@@ -65,6 +65,7 @@
               <option value="Sosial">Sosial</option>
               <option value="Pendidikan">Pendidikan</option>
               <option value="Kesehatan">Kesehatan</option>
+              <option value="Reses">Reses</option>
               <option value="Lainnya">Lainnya</option>
             </select>
           </div>
@@ -278,10 +279,12 @@ const updateGallery = async () => {
     }
 
     formDataToSend.append('_method', 'PUT');
+    formDataToSend.append('_token', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '');
 
     await router.post(`/admin/gallery/${props.gallery.id}`, formDataToSend, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
       },
       onSuccess: () => {
         Swal.fire({

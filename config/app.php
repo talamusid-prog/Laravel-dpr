@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://laravel-dpr.zeabur.app'),
+    'url' => env('APP_URL', 'https://agus-ambo-djiwa.zeabur.app'),
 
     /*
     |--------------------------------------------------------------------------

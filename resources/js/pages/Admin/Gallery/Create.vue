@@ -139,6 +139,7 @@
                     <option value="Masyarakat">Masyarakat</option>
                     <option value="Pendidikan">Pendidikan</option>
                     <option value="Ekonomi">Ekonomi</option>
+                    <option value="Reses">Reses</option>
                   </select>
                 </div>
 
